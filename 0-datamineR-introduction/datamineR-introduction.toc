@@ -1,0 +1,12 @@
+\select@language {english}
+\contentsline {section}{\numberline {0.1}Introduction}{2}
+\contentsline {section}{\numberline {0.2}CRoss Industry Standard Process for datamining}{2}
+\contentsline {subsection}{\numberline {0.2.1}Business Understanding}{3}
+\contentsline {subsection}{\numberline {0.2.2}Data Understanding}{3}
+\contentsline {subsection}{\numberline {0.2.3}Data Preparation}{4}
+\contentsline {subsection}{\numberline {0.2.4}Modeling }{4}
+\contentsline {subsection}{\numberline {0.2.5}Evaluation }{4}
+\contentsline {subsection}{\numberline {0.2.6}Deployment}{5}
+\contentsline {section}{\numberline {0.3}Toolkit Scope \& Setup}{5}
+\contentsline {subsection}{\numberline {0.3.1}Scope}{5}
+\contentsline {subsection}{\numberline {0.3.2}Setup}{5}
