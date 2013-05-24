@@ -1,6 +1,5 @@
 # data analysis template
-
-# we define knitr chunks here which  can be picked up by rnw files for document generation
+# we define knitr chunks here which  can be picked up by Rnw or Rmd files for document generation
 
 ## @knitr read_data
 i=1
@@ -50,6 +49,23 @@ cat_vars <- length(cat_var_names)
 library(reporttools)
 # summarize numeric variables
 tableContinuous(data[,sapply(data, is.numeric)],stats = c("n", "min", "q1", "median", "mean", "q3", "max", "na"))
+
+## @knitr num-overview-md
+library(xtable)
+
+# summarize numeric variables
+td <- data[,sapply(data, is.numeric)]
+td.min <- sapply(td,min)
+td.mean <- sapply(td,mean,na.rm = TRUE)
+td.median <- sapply(td,median)
+td.max <- sapply(td,max)
+td.n <- as.numeric(apply(td, 2, function(x) length(which(!is.na(x)))))
+td.na <- as.numeric(apply(td, 2, function(x) length(which(is.na(x)))))
+
+tddf <- cbind(td.mean,td.median)
+
+#xtable(tddf)
+print(xtable(tddf),type='html')
 
 
 ## @knitr run-numeric

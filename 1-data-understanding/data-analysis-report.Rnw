@@ -37,7 +37,7 @@
 \section{Introduction}
 This data analysis report is generated using R, R-studio and knitr to sweave R code and Latex into pdf format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.\\
 The data analysis step is the first step an a datamining analysis.
-\section{Dataset Basic Artifactes}
+\section{Dataset Basic Artifacts}
 
 \subsection{Basic dataset information}
 Basic information on dataset:\\
@@ -45,7 +45,7 @@ Basic information on dataset:\\
 # set global chunk options 
 opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=TRUE, error=TRUE)
 # read externalized R from R script
-read_chunk("data-analysis-template.R")
+read_chunk("data-analysis.R")
 @
 
 

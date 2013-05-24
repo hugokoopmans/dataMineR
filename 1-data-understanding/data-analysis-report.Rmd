@@ -1,0 +1,66 @@
+Data Analysis Report
+========================================================
+
+Todo : add table of content
+
+Introduction
+------------------------
+This data analysis report is generated using R-studio and knitr to knit R code and markdown into html format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.
+The data analysis step is the first step an a datamining analysis.
+
+Dataset Basic Artifacts 
+------------------------------------
+Basic information from the dataset we are using.
+
+### Basic dataset information
+
+```{r eval=TRUE, echo=FALSE}
+# set global chunk options 
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+# read externalized R from R script
+read_chunk("data-analysis.R")
+```
+
+
+```{r read_data}
+
+```
+We are using data from file : `r filename`
+The dataset has `r colums` variables and `r rows` rows.  
+
+The case identifyer is *`r original_case_id`* this is unique for all cases.
+
+Variabele types
+-----------------------------
+```{r var_types}
+
+```
+The following variabeles are present in the dataset:
+`r var_names` 
+
+We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
+
+
+Excluded variables
+------------------------------
+From the varables provided the folowing list will be excluded in this anlysis: ```r exclude_var_names```
+
+Sometimes categoric variables are present as coded numbers. These should be treated as factors.
+In this dataset the following variables will be used as factors(categoric): ```r treat_as_categorical```
+
+We have ```r num_vars``` numeric variables and ```r cat_vars``` categorical variables (or factors in R).
+
+Numeric variables
+=============================
+Here we analyse all numeric variables. We start with an overview on basic statistics per variable. We check for missing values. We do a histogram plot to show the distribution for this variable. And we test for outliers.
+
+
+Overview
+-----------------------------
+In the table below we report the number of observations (n), the smallest observation (min),  the first quantile (q1), the media ,  the mean, last quantile, the largest observation (max), and the nber of missing values (na).
+
+```{r num-overview-md, results='asis'}
+
+```
+
+ 

@@ -22,26 +22,27 @@ Information on Dataset
 ------------------------------------
 Basic information from the dataset we are using.
 
+```{r eval=TRUE, echo=FALSE}
+# set global chunk options 
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+# read externalized R from R script
+read_chunk("behaviour-analysis-template.R")
+```
 
 
+```{r read_data}
 
-
-
-
-We are using data from file : data-analysis.tab
-The dataset has 34 variables and 59992 rows.
+```
+We are using data from file : `r filename`
+The dataset has `r colums` variables and `r rows` rows.
 
 Variabele types
 -----------------------------
+```{r var_types}
 
+```
+The following variabeles are present in the dataset:
+`r var_names` 
 
-The following variabele are present in the dataset:
-jaarbedr, minbegjr, proj, nudona, r20102009mndbedrag, r20112010mndbedrag, X2009avgbedragmnd, X2010avgbedragmnd, X2011avgbedragmnd, bronaktie, bronlaatstebetwijze, Jaarbinnen, sexe, leeftijd2011, Bronbinnen, mailingen, magpost, magdigi, diginws, TM, mail07, catHHINKOMEN, catHHSOCIALE, catHHOPLEIDI, catHHLEVENSF, catHHGEOTYPE, catHHTYPEWO, catHHEIGENDO, catHHWOZWAA, catBELEGGERS, catLENERS, catSPAARDERS, catSWITCHGEVO, catMERKENTROU 
-
-We have 26 numeric variables and 8 categorical variables (or factors in R).
-
-You can also embed plots, for example:
-
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
-
+We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
 

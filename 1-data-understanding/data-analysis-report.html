@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Data Analysis Report</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Data Analysis Report</h1>
+
+<p>Todo : add table of content</p>
+
+<h2>Introduction</h2>
+
+<p>This data analysis report is generated using R-studio and knitr to knit R code and markdown into html format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.
+The data analysis step is the first step an a datamining analysis.</p>
+
+<h2>Dataset Basic Artifacts </h2>
+
+<p>Basic information from the dataset we are using.</p>
+
+<h3>Basic dataset information</h3>
+
+<p>We are using data from file : d5.tab
+The dataset has 37 variables and 59992 rows.  </p>
+
+<p>The case identifyer is <em>registrnr</em> this is unique for all cases.</p>
+
+<h2>Variabele types</h2>
+
+<p>The following variabeles are present in the dataset:
+jaarbedr, minbegjr, proj, nudona, r20102009mndbedrag, r20112010mndbedrag, X2009avgbedragmnd, X2010avgbedragmnd, X2011avgbedragmnd, bronaktie, bronlaatstebetwijze, Jaarbinnen, sexe, leeftijd2011, Bronbinnen, mailingen, magpost, magdigi, diginws, TM, mail07, catHHINKOMEN, catHHSOCIALE, catHHOPLEIDI, catHHLEVENSF, catHHGEOTYPE, catHHTYPEWO, catHHEIGENDO, catHHWOZWAA, catBELEGGERS, catLENERS, catSPAARDERS, catSWITCHGEVO, catMERKENTROU </p>
+
+<p>We have 13 numeric variables and 21 categorical variables (or factors in R).</p>
+
+<h2>Excluded variables</h2>
+
+<p>From the varables provided the folowing list will be excluded in this anlysis: <code>caseID, registrnr, X2011tmoktstornaant, X2010stornoaantal</code></p>
+
+<p>Sometimes categoric variables are present as coded numbers. These should be treated as factors.
+In this dataset the following variables will be used as factors(categoric): <code>catHHINKOMEN, catHHSOCIALE, catHHOPLEIDI, catHHLEVENSF, catHHGEOTYPE, catHHTYPEWO, catHHEIGENDO, catHHWOZWAA, catBELEGGERS, catLENERS, catSPAARDERS, catSWITCHGEVO, catMERKENTROU</code></p>
+
+<p>We have <code>13</code> numeric variables and <code>21</code> categorical variables (or factors in R).</p>
+
+<h1>Numeric variables</h1>
+
+<p>Here we analyse all numeric variables. We start with an overview on basic statistics per variable. We check for missing values. We do a histogram plot to show the distribution for this variable. And we test for outliers.</p>
+
+<h2>Overview</h2>
+
+<p>In the table below we report the number of observations (n), the smallest observation (min),  the first quantile (q1), the media ,  the mean, last quantile, the largest observation (max), and the nber of missing values (na).</p>
+
+<!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
+
+<!-- Fri May 24 22:02:03 2013 -->
+
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> td.mean </TH> <TH> td.median </TH>  </TR>
+  <TR> <TD align="right"> jaarbedr </TD> <TD align="right"> 79.21 </TD> <TD align="right"> 60.00 </TD> </TR>
+  <TR> <TD align="right"> minbegjr </TD> <TD align="right"> 2003.23 </TD> <TD align="right"> 2008.00 </TD> </TR>
+  <TR> <TD align="right"> proj </TD> <TD align="right"> 0.33 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD align="right"> nudona </TD> <TD align="right"> 0.89 </TD> <TD align="right"> 1.00 </TD> </TR>
+  <TR> <TD align="right"> r20102009mndbedrag </TD> <TD align="right"> 1.00 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> r20112010mndbedrag </TD> <TD align="right"> 1.05 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> X2009avgbedragmnd </TD> <TD align="right"> 6.41 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> X2010avgbedragmnd </TD> <TD align="right"> 6.36 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> X2011avgbedragmnd </TD> <TD align="right"> 6.63 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> Jaarbinnen </TD> <TD align="right"> 2000.81 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> leeftijd2011 </TD> <TD align="right"> 53.25 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> mailingen </TD> <TD align="right"> 86.23 </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> magpost </TD> <TD align="right"> 8.01 </TD> <TD align="right">  </TD> </TR>
+   </TABLE>
+
+</body>
+
+</html>
+
