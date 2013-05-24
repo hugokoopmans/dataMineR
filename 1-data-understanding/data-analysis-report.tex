@@ -1,0 +1,203 @@
+% knitr mixed latex en R tot pdf
+\documentclass[10pt,a4paper,titlepage]{report}\usepackage{graphicx, color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
+\newcommand{\hlnumber}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlfunctioncall}[1]{\textcolor[rgb]{0.501960784313725,0,0.329411764705882}{\textbf{#1}}}%
+\newcommand{\hlstring}[1]{\textcolor[rgb]{0.6,0.6,1}{#1}}%
+\newcommand{\hlkeyword}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlargument}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hlcomment}[1]{\textcolor[rgb]{0.180392156862745,0.6,0.341176470588235}{#1}}%
+\newcommand{\hlroxygencomment}[1]{\textcolor[rgb]{0.43921568627451,0.47843137254902,0.701960784313725}{#1}}%
+\newcommand{\hlformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hleqformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
+\newcommand{\hlassignement}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlpackage}[1]{\textcolor[rgb]{0.588235294117647,0.709803921568627,0.145098039215686}{#1}}%
+\newcommand{\hlslot}[1]{\textit{#1}}%
+\newcommand{\hlsymbol}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlprompt}[1]{\textcolor[rgb]{0.2,0.2,0.2}{#1}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage[latin1]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+% bepaald marges van papier
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+% voor plaatsten van figure
+\usepackage{float}
+% voor tabellen
+\usepackage{longtable}
+
+% header and footer definition
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\includegraphics[height=0.8cm]{dikw-logo.png}}
+\chead{}
+\rhead{\bfseries Data Analysis Report}
+\lfoot{}
+\cfoot{Data $>$ Information $>$ Knowledge $>$ Wisdom}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\author{Hugo Koopmans}
+\title{Data Analysis Report}
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+\section{Introduction}
+This data analysis report is generated using R, R-studio and knitr to sweave R code and Latex into pdf format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.\\
+The data analysis step is the first step an a datamining analysis.
+\section{Dataset Basic Artifactes}
+
+\subsection{Basic dataset information}
+Basic information on dataset:\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\textcolor{warningcolor}{\#\# Warning: cannot open file 'data-analysis-template.R': No such file or directory}}
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\#\# Error: cannot open the connection}}\end{kframe}
+\end{knitrout}
+
+
+
+
+
+\\
+Read data from file : 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'filename' not found}}.\\
+The dataset has 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'colums' not found}} variables and 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'rows' not found}} rows.
+
+The case identifyer is 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'original\_case\_id' not found}} this is unique for all cases.
+
+\subsection{Excluded variables}
+From the varables provided the folowing list will be excluded in this anlysis: 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'exclude\_var\_names' not found}}
+
+\subsection{Variabele types}
+
+
+The following variabele are present in the dataset:\\
+
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'var\_names' not found}} 
+\\
+Sometimes categoric variables are present as coded numbers. These should be treated as factors.
+In this dataset the following variables will be used as factors(categoric): 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : \\  object 'treat\_as\_categorical' not found}}
+\\
+We have 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'num\_vars' not found}} numeric variables and 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'cat\_vars' not found}} categorical variables (or factors in R).
+\newpage
+\section{Numeric variables}
+Here we analyse all numeric variables. We start with an overview on basic statistics per variable. We check for missing values. We do a histogram plot to show the distribution for this variable. And we test for outliers.
+
+\subsection{Overview}
+In the table below we report the number of observations (n), the smallest observation (min),  the first quantile (q1), the media ,  the mean, last quantile, the largest observation (max), and the nber of missing values (na).\\
+
+
+
+
+ 
+
+
+
+
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in paste(out, collapse = "\textbackslash{}n") : object 'out' not found}}
+
+% analyse categorical variabels
+\newpage
+\section{Categorical variables}
+Here we analyse all categorical variables. We first check the number of different levels in each category(or factor). Then we do a bar plot to show the distribution for each variable.
+\\
+Overview\\
+In the following table we will see each variable printed with it's unique levels. Beside each level a count is made and a precentage calculated. In the last colum we find a culumative count summing the total up to 100\%. 
+
+
+We see that the number of levels can be quite big, for reporting we will omit all variables with more then  
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'max\_levels' not found}} levels. These will not be reported in the subsections below.
+
+
+
+Variables with to many levels to report are : 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : \\  object 'cat\_var\_names\_not\_reported' not found}}
+
+
+
+
+
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in paste(out, collapse = "\textbackslash{}n") : object 'out' not found}}
+
+\section{Behavioural Analysis}
+The next step is behavioural analysis.
+The current dataset is now saved.\\
+
+
+
+Dataset saved as : 
+
+{\ttfamily\noindent\bfseries\textcolor{errorcolor}{\\Error in eval(expr, envir, enclos) : object 'datasetName' not found}}
+
+\end{document}

@@ -68,7 +68,7 @@ library(gridExtra)
 
 pa <- ggplot(data, aes(age,p_y)) + geom_point() + geom_smooth()
 pi <- ggplot(data, aes(income,p_y)) + geom_point() + geom_smooth()
-pi <- ggplot(data, aes(p_y,gender)) + geom_histogram() + facet_grid(p_y ~ gender)
+#pi <- ggplot(data, aes(p_y,gender)) + geom_histogram() + facet_grid(p_y ~ gender)
 
 grid.arrange(pa,pi,ncol=2)
 

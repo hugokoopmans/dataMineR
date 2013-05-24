@@ -1,0 +1,10 @@
+\select@language {english}
+\contentsline {section}{\numberline {0.1}Introduction}{2}
+\contentsline {section}{\numberline {0.2}Dataset Basic Artifactes}{2}
+\contentsline {subsection}{\numberline {0.2.1}Basic dataset information}{2}
+\contentsline {subsection}{\numberline {0.2.2}Excluded variables}{2}
+\contentsline {subsection}{\numberline {0.2.3}Variabele types}{2}
+\contentsline {section}{\numberline {0.3}Numeric variables}{3}
+\contentsline {subsection}{\numberline {0.3.1}Overview}{3}
+\contentsline {section}{\numberline {0.4}Categorical variables}{4}
+\contentsline {section}{\numberline {0.5}Behavioural Analysis}{4}
