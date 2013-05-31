@@ -84,8 +84,7 @@ In the table below we report the number of observations (n), the smallest observ
 @
 
  
-<<run-numeric, eval=TRUE, include=FALSE>>=
-#<<run-numeric, results='tex'>>=
+<<run-numeric-lx, eval=TRUE, include=FALSE>>=
 
 @
 

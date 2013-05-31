@@ -14,18 +14,18 @@ Basic information from the dataset we are using.
 
 ### Basic dataset information
 
-```{r eval=TRUE, echo=FALSE}
-# set global chunk options 
-opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+```{r setup, echo=FALSE, cache=FALSE}
+# set global chunk options APPERENTLY CANNOT BE EXTERNALIZED
+opts_chunk$set(echo=TRUE, cache=FALSE, tidy=TRUE, error=TRUE)
 # read externalized R from R script
 read_chunk("data-analysis.R")
 ```
 
 
-```{r read_data}
+```{r read_data, echo=TRUE}
 
 ```
-We are using data from file : `r filename`
+We are using data from file : `r path2file`
 The dataset has `r colums` variables and `r rows` rows.  
 
 The case identifyer is *`r original_case_id`* this is unique for all cases.
@@ -43,12 +43,12 @@ We have `r num_vars` numeric variables and `r cat_vars` categorical variables (o
 
 Excluded variables
 ------------------------------
-From the varables provided the folowing list will be excluded in this anlysis: ```r exclude_var_names```
+From the varables provided the folowing list will be excluded in this anlysis: `r exclude_var_names`
 
 Sometimes categoric variables are present as coded numbers. These should be treated as factors.
-In this dataset the following variables will be used as factors(categoric): ```r treat_as_categorical```
+In this dataset the following variables will be used as factors(categoric): `r treat_as_categorical`
 
-We have ```r num_vars``` numeric variables and ```r cat_vars``` categorical variables (or factors in R).
+We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
 
 Numeric variables
 =============================
@@ -63,4 +63,13 @@ In the table below we report the number of observations (n), the smallest observ
 
 ```
 
- 
+```{r run-numeric-md, include=FALSE}
+out = NULL
+for (i in c(1:num_vars)) {
+  out = c(out, knit_child('da-numeric.Rmd'))
+}
+```
+
+`r paste(out, collapse = '\n')`
+
+

@@ -134,6 +134,43 @@ hr {
 
 </style>
 
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
 
 
 
@@ -156,26 +193,75 @@ The data analysis step is the first step an a datamining analysis.</p>
 
 <h3>Basic dataset information</h3>
 
-<p>We are using data from file : d5.tab
-The dataset has 37 variables and 59992 rows.  </p>
+<pre><code class="r">i = 1
 
-<p>The case identifyer is <em>registrnr</em> this is unique for all cases.</p>
+# data location full path to filename from working directory(=project dir)
+path2file &lt;- &quot;../data/data-simple-example.tab&quot;
+
+# read dataframe from tab delimets file
+data &lt;- read.delim(path2file, sep = &quot;\t&quot;, strip.white = TRUE)
+
+# determine number of rows and colums in dataframe
+rows &lt;- nrow(data)
+colums &lt;- ncol(data)
+
+# case_id = registrnr
+original_case_id = &quot;caseID&quot;
+# data$caseID &lt;- data$caseID
+
+# check if case_id is unique
+if (!(length(unique(data$caseID)) == length(data$caseID))) {
+    cat(&quot;Warning : Case_id appears not unique ! &quot;)
+}
+
+# exclude original case_id and variables with lot of missing
+# exclude_var_names &lt;-
+# c(&#39;caseID&#39;,&#39;registrnr&#39;,&#39;X2011tmoktstornaant&#39;,&#39;X2010stornoaantal&#39;)
+exclude_var_names &lt;- c(&quot;caseID&quot;, &quot;p_y&quot;, &quot;p_real&quot;)
+data &lt;- data[, !names(data) %in% exclude_var_names]
+</code></pre>
+
+<p>We are using data from file : ../data/data-simple-example.tab
+The dataset has 7 variables and 5000 rows.  </p>
+
+<p>The case identifyer is <em>caseID</em> this is unique for all cases.</p>
 
 <h2>Variabele types</h2>
 
-<p>The following variabeles are present in the dataset:
-jaarbedr, minbegjr, proj, nudona, r20102009mndbedrag, r20112010mndbedrag, X2009avgbedragmnd, X2010avgbedragmnd, X2011avgbedragmnd, bronaktie, bronlaatstebetwijze, Jaarbinnen, sexe, leeftijd2011, Bronbinnen, mailingen, magpost, magdigi, diginws, TM, mail07, catHHINKOMEN, catHHSOCIALE, catHHOPLEIDI, catHHLEVENSF, catHHGEOTYPE, catHHTYPEWO, catHHEIGENDO, catHHWOZWAA, catBELEGGERS, catLENERS, catSPAARDERS, catSWITCHGEVO, catMERKENTROU </p>
+<pre><code class="r"># names in header
+var_names &lt;- names(data)
 
-<p>We have 13 numeric variables and 21 categorical variables (or factors in R).</p>
+# sometimes variabels are in the dataset as codes, they appear numeric but
+# code for a category
+
+## treat_as_categorical &lt;-
+## c(&#39;catHHINKOMEN&#39;,&#39;catHHSOCIALE&#39;,&#39;catHHOPLEIDI&#39;,&#39;catHHLEVENSF&#39;,&#39;catHHGEOTYPE&#39;,&#39;catHHTYPEWO&#39;,
+##&#39;catHHEIGENDO&#39;,&#39;catHHWOZWAA&#39;, &#39;catBELEGGERS&#39;,&#39;catLENERS&#39;,   &#39;catSPAARDERS&#39;,&#39;catSWITCHGEVO&#39;
+## ,&#39;catMERKENTROU&#39;)
+treat_as_categorical &lt;- NULL
+
+# transform numeric into factors
+data[treat_as_categorical] &lt;- lapply(data[treat_as_categorical], as.factor)
+
+num_var_names &lt;- names(data[sapply(data, is.numeric)])
+num_vars &lt;- length(num_var_names)
+cat_var_names &lt;- names(data[sapply(data, is.factor)])
+cat_vars &lt;- length(cat_var_names)
+</code></pre>
+
+<p>The following variabeles are present in the dataset:
+age, income, gender, y </p>
+
+<p>We have 3 numeric variables and 1 categorical variables (or factors in R).</p>
 
 <h2>Excluded variables</h2>
 
-<p>From the varables provided the folowing list will be excluded in this anlysis: <code>caseID, registrnr, X2011tmoktstornaant, X2010stornoaantal</code></p>
+<p>From the varables provided the folowing list will be excluded in this anlysis: caseID, p_y, p_real</p>
 
 <p>Sometimes categoric variables are present as coded numbers. These should be treated as factors.
-In this dataset the following variables will be used as factors(categoric): <code>catHHINKOMEN, catHHSOCIALE, catHHOPLEIDI, catHHLEVENSF, catHHGEOTYPE, catHHTYPEWO, catHHEIGENDO, catHHWOZWAA, catBELEGGERS, catLENERS, catSPAARDERS, catSWITCHGEVO, catMERKENTROU</code></p>
+In this dataset the following variables will be used as factors(categoric): </p>
 
-<p>We have <code>13</code> numeric variables and <code>21</code> categorical variables (or factors in R).</p>
+<p>We have 3 numeric variables and 1 categorical variables (or factors in R).</p>
 
 <h1>Numeric variables</h1>
 
@@ -185,26 +271,152 @@ In this dataset the following variables will be used as factors(categoric): <cod
 
 <p>In the table below we report the number of observations (n), the smallest observation (min),  the first quantile (q1), the media ,  the mean, last quantile, the largest observation (max), and the nber of missing values (na).</p>
 
+<pre><code class="r">library(xtable)
+
+# summarize numeric variables
+td &lt;- data[, sapply(data, is.numeric)]
+td.min &lt;- sapply(td, min, na.rm = TRUE)
+td.mean &lt;- sapply(td, mean, na.rm = TRUE)
+td.median &lt;- sapply(td, median, na.rm = TRUE)
+td.max &lt;- sapply(td, max, na.rm = TRUE)
+td.n &lt;- as.numeric(apply(td, 2, function(x) length(which(!is.na(x)))))
+td.na &lt;- as.numeric(apply(td, 2, function(x) length(which(is.na(x)))))
+td.q &lt;- apply(td, 2, quantile, na.rm = TRUE)
+
+tddf &lt;- data.frame(cbind(td.n, td.na, td.min, td.mean, td.median, td.max))
+names(tddf) &lt;- c(&quot;n obs&quot;, &quot;n missing&quot;, &quot;min&quot;, &quot;mean&quot;, &quot;median&quot;, &quot;max&quot;)
+
+print(xtable(tddf), type = &quot;html&quot;)
+</code></pre>
+
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
 
-<!-- Fri May 24 22:02:03 2013 -->
+<!-- Fri May 31 10:47:11 2013 -->
 
 <TABLE border=1>
-<TR> <TH>  </TH> <TH> td.mean </TH> <TH> td.median </TH>  </TR>
-  <TR> <TD align="right"> jaarbedr </TD> <TD align="right"> 79.21 </TD> <TD align="right"> 60.00 </TD> </TR>
-  <TR> <TD align="right"> minbegjr </TD> <TD align="right"> 2003.23 </TD> <TD align="right"> 2008.00 </TD> </TR>
-  <TR> <TD align="right"> proj </TD> <TD align="right"> 0.33 </TD> <TD align="right"> 0.00 </TD> </TR>
-  <TR> <TD align="right"> nudona </TD> <TD align="right"> 0.89 </TD> <TD align="right"> 1.00 </TD> </TR>
-  <TR> <TD align="right"> r20102009mndbedrag </TD> <TD align="right"> 1.00 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> r20112010mndbedrag </TD> <TD align="right"> 1.05 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> X2009avgbedragmnd </TD> <TD align="right"> 6.41 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> X2010avgbedragmnd </TD> <TD align="right"> 6.36 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> X2011avgbedragmnd </TD> <TD align="right"> 6.63 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> Jaarbinnen </TD> <TD align="right"> 2000.81 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> leeftijd2011 </TD> <TD align="right"> 53.25 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> mailingen </TD> <TD align="right"> 86.23 </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> magpost </TD> <TD align="right"> 8.01 </TD> <TD align="right">  </TD> </TR>
+<TR> <TH>  </TH> <TH> n obs </TH> <TH> n missing </TH> <TH> min </TH> <TH> mean </TH> <TH> median </TH> <TH> max </TH>  </TR>
+  <TR> <TD align="right"> age </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 18.01 </TD> <TD align="right"> 42.81 </TD> <TD align="right"> 40.78 </TD> <TD align="right"> 84.98 </TD> </TR>
+  <TR> <TD align="right"> income </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 14556.59 </TD> <TD align="right"> 34062.62 </TD> <TD align="right"> 32953.06 </TD> <TD align="right"> 83610.97 </TD> </TR>
+  <TR> <TD align="right"> y </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1.00 </TD> </TR>
    </TABLE>
+
+<pre><code class="r">
+## run numeric template for each numeric variable seperately
+</code></pre>
+
+<h2>Variabele age</h2>
+
+<p>Missing :  0<br/>
+Minimum value : 18.0131<br/>
+Percentile 1 : 18.5014<br/>
+Percentile 99 : 81.9667<br/>
+Maximum value : 84.9796  </p>
+
+<pre><code class="r">warn_extreme_values = 3
+d1 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[2] &gt; 
+    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
+        1, 0.01))[1]
+d99 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[101] &gt; 
+    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
+        1, 0.01))[100]
+if (d1) {
+    cat(&quot;Warning : Suspect extreme values in left tail&quot;)
+}
+if (d99) {
+    cat(&quot;Warning : Suspect extreme values in right tail&quot;)
+}
+</code></pre>
+
+<pre><code class="r">library(ggplot2)
+
+v &lt;- num_var_names[i]
+hp &lt;- ggplot(na.omit(data), aes_string(x = v)) + geom_histogram(colour = &quot;grey&quot;, 
+    fill = &quot;grey&quot;, binwidth = diff(range(na.omit(data[[v]]))/100))
+
+hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)) + 
+    theme(axis.title.y = element_blank(), axis.text.y = element_text(size = 10))
+</code></pre>
+
+<pre><code>## Warning: position_stack requires constant width: output may be incorrect
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<h2>Variabele income</h2>
+
+<p>Missing :  0<br/>
+Minimum value : 1.4557 &times; 10<sup>4</sup><br/>
+Percentile 1 : 1.8644 &times; 10<sup>4</sup><br/>
+Percentile 99 : 5.9851 &times; 10<sup>4</sup><br/>
+Maximum value : 8.3611 &times; 10<sup>4</sup>  </p>
+
+<pre><code class="r">warn_extreme_values = 3
+d1 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[2] &gt; 
+    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
+        1, 0.01))[1]
+d99 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[101] &gt; 
+    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
+        1, 0.01))[100]
+if (d1) {
+    cat(&quot;Warning : Suspect extreme values in left tail&quot;)
+}
+if (d99) {
+    cat(&quot;Warning : Suspect extreme values in right tail&quot;)
+}
+</code></pre>
+
+<pre><code class="r">library(ggplot2)
+
+v &lt;- num_var_names[i]
+hp &lt;- ggplot(na.omit(data), aes_string(x = v)) + geom_histogram(colour = &quot;grey&quot;, 
+    fill = &quot;grey&quot;, binwidth = diff(range(na.omit(data[[v]]))/100))
+
+hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)) + 
+    theme(axis.title.y = element_blank(), axis.text.y = element_text(size = 10))
+</code></pre>
+
+<pre><code>## Warning: position_stack requires constant width: output may be incorrect
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-4"/> </p>
+
+<h2>Variabele y</h2>
+
+<p>Missing :  0<br/>
+Minimum value : 0<br/>
+Percentile 1 : 0<br/>
+Percentile 99 : 1<br/>
+Maximum value : 1  </p>
+
+<pre><code class="r">warn_extreme_values = 3
+d1 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[2] &gt; 
+    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
+        1, 0.01))[1]
+d99 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[101] &gt; 
+    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
+        1, 0.01))[100]
+if (d1) {
+    cat(&quot;Warning : Suspect extreme values in left tail&quot;)
+}
+if (d99) {
+    cat(&quot;Warning : Suspect extreme values in right tail&quot;)
+}
+</code></pre>
+
+<pre><code class="r">library(ggplot2)
+
+v &lt;- num_var_names[i]
+hp &lt;- ggplot(na.omit(data), aes_string(x = v)) + geom_histogram(colour = &quot;grey&quot;, 
+    fill = &quot;grey&quot;, binwidth = diff(range(na.omit(data[[v]]))/100))
+
+hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)) + 
+    theme(axis.title.y = element_blank(), axis.text.y = element_text(size = 10))
+</code></pre>
+
+<pre><code>## Warning: position_stack requires constant width: output may be incorrect
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-6"/> </p>
 
 </body>
 
