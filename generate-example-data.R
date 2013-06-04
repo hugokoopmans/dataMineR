@@ -53,6 +53,9 @@ confint(mylogit)
 
 p_y <- mylogit$fit
 
+# dummy caseID will overwrite later
+caseID <- age
+
 data <- data.frame(caseID,age,income,gender,p_real,p_y,y)
 
 # case ID
@@ -65,8 +68,8 @@ Good <- subset(data,data$y %in% c('1'))
 
 #plot input space
 plot(data$age,data$income,pch=".")
-points(Bad$age,Bad$income, col='red',pch=".",cex=5)
 points(Good$age,Good$income, col='green',pch=".",cex=3)
+points(Bad$age,Bad$income, col='red',pch=".",cex=5)
 
 library(ggplot2)
 library(gridExtra)

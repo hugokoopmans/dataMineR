@@ -36,6 +36,11 @@ colums <- ncol(data)
 original_case_id = "caseID"
 # data$caseID <- data$caseID
 
+# map specific outcome field to target remove outcome field so scripts can
+# work uniformly from here on
+data$target <- data$y
+data$y <- NULL
+
 # check if case_id is unique
 if (!(length(unique(data$caseID)) == length(data$caseID))) {
     cat("Warning : Case_id appears not unique ! ")
@@ -44,7 +49,7 @@ if (!(length(unique(data$caseID)) == length(data$caseID))) {
 # exclude original case_id and variables with lot of missing
 # exclude_var_names <-
 # c('caseID','registrnr','X2011tmoktstornaant','X2010stornoaantal')
-exclude_var_names <- c("caseID", "p_y", "p_real")
+exclude_var_names <- c("p_y", "p_real")
 data <- data[, !names(data) %in% exclude_var_names]
 ```
 
@@ -72,26 +77,28 @@ treat_as_categorical <- NULL
 # transform numeric into factors
 data[treat_as_categorical] <- lapply(data[treat_as_categorical], as.factor)
 
-num_var_names <- names(data[sapply(data, is.numeric)])
+# remove caseID from list of var names to be analysed
+d2a <- subset(data, select = -c(caseID, target))
+num_var_names <- names(d2a[sapply(d2a, is.numeric)])
 num_vars <- length(num_var_names)
-cat_var_names <- names(data[sapply(data, is.factor)])
+cat_var_names <- names(d2a[sapply(d2a, is.factor)])
 cat_vars <- length(cat_var_names)
 ```
 
 The following variabeles are present in the dataset:
-age, income, gender, y 
+caseID, age, income, gender, target 
 
-We have 3 numeric variables and 1 categorical variables (or factors in R).
+We have 2 numeric variables and 1 categorical variables (or factors in R).
 
 
 Excluded variables
 ------------------------------
-From the varables provided the folowing list will be excluded in this anlysis: caseID, p_y, p_real
+From the varables provided the folowing list will be excluded in this anlysis: p_y, p_real
 
 Sometimes categoric variables are present as coded numbers. These should be treated as factors.
 In this dataset the following variables will be used as factors(categoric): 
 
-We have 3 numeric variables and 1 categorical variables (or factors in R).
+We have 2 numeric variables and 1 categorical variables (or factors in R).
 
 Numeric variables
 =============================
@@ -123,12 +130,13 @@ print(xtable(tddf), type = "html")
 ```
 
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
-<!-- Tue Jun  4 21:16:13 2013 -->
+<!-- Tue Jun  4 22:23:23 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> n obs </TH> <TH> n missing </TH> <TH> min </TH> <TH> mean </TH> <TH> median </TH> <TH> max </TH>  </TR>
-  <TR> <TD align="right"> age </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 18.01 </TD> <TD align="right"> 42.81 </TD> <TD align="right"> 40.78 </TD> <TD align="right"> 84.98 </TD> </TR>
-  <TR> <TD align="right"> income </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 14556.59 </TD> <TD align="right"> 34062.62 </TD> <TD align="right"> 32953.06 </TD> <TD align="right"> 83610.97 </TD> </TR>
-  <TR> <TD align="right"> y </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1.00 </TD> </TR>
+  <TR> <TD align="right"> caseID </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 2500.50 </TD> <TD align="right"> 2500.50 </TD> <TD align="right"> 5000.00 </TD> </TR>
+  <TR> <TD align="right"> age </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 18.00 </TD> <TD align="right"> 42.43 </TD> <TD align="right"> 40.15 </TD> <TD align="right"> 84.99 </TD> </TR>
+  <TR> <TD align="right"> income </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 12346.85 </TD> <TD align="right"> 34013.52 </TD> <TD align="right"> 33090.40 </TD> <TD align="right"> 75093.21 </TD> </TR>
+  <TR> <TD align="right"> target </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1.00 </TD> </TR>
    </TABLE>
 
 ```r
@@ -145,10 +153,10 @@ Variabele age
 ------------------------------------
 
 Missing :  0  
-Minimum value : 18.0131  
-Percentile 1 : 18.5014  
-Percentile 99 : 81.9667  
-Maximum value : 84.9796  
+Minimum value : 18.001  
+Percentile 1 : 18.3864  
+Percentile 99 : 81.8257  
+Maximum value : 84.9894  
 
 
 ```r
@@ -180,10 +188,6 @@ hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)
     theme(axis.title.y = element_blank(), axis.text.y = element_text(size = 10))
 ```
 
-```
-## Warning: position_stack requires constant width: output may be incorrect
-```
-
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 
 
@@ -191,10 +195,10 @@ Variabele income
 ------------------------------------
 
 Missing :  0  
-Minimum value : 1.4557 &times; 10<sup>4</sup>  
-Percentile 1 : 1.8644 &times; 10<sup>4</sup>  
-Percentile 99 : 5.9851 &times; 10<sup>4</sup>  
-Maximum value : 8.3611 &times; 10<sup>4</sup>  
+Minimum value : 1.2347 &times; 10<sup>4</sup>  
+Percentile 1 : 1.8394 &times; 10<sup>4</sup>  
+Percentile 99 : 5.8432 &times; 10<sup>4</sup>  
+Maximum value : 7.5093 &times; 10<sup>4</sup>  
 
 
 ```r
@@ -231,52 +235,6 @@ hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
-
-
-Variabele y
-------------------------------------
-
-Missing :  0  
-Minimum value : 0  
-Percentile 1 : 0  
-Percentile 99 : 1  
-Maximum value : 1  
-
-
-```r
-warn_extreme_values = 3
-d1 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[2] > 
-    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
-        1, 0.01))[1]
-d99 = quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 1, 0.01))[101] > 
-    warn_extreme_values * quantile(na.omit(data[[num_var_names[i]]]), probs = seq(0, 
-        1, 0.01))[100]
-if (d1) {
-    cat("Warning : Suspect extreme values in left tail")
-}
-if (d99) {
-    cat("Warning : Suspect extreme values in right tail")
-}
-```
-
-
-
-```r
-library(ggplot2)
-
-v <- num_var_names[i]
-hp <- ggplot(na.omit(data), aes_string(x = v)) + geom_histogram(colour = "grey", 
-    fill = "grey", binwidth = diff(range(na.omit(data[[v]]))/100))
-
-hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)) + 
-    theme(axis.title.y = element_blank(), axis.text.y = element_text(size = 10))
-```
-
-```
-## Warning: position_stack requires constant width: output may be incorrect
-```
-
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 
 
@@ -326,7 +284,7 @@ print(xtable(xt),type='html')
 ```
 
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
-<!-- Tue Jun  4 21:16:14 2013 -->
+<!-- Tue Jun  4 22:23:24 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> levels </TH> <TH> # missings </TH>  </TR>
   <TR> <TD align="right"> gender </TD> <TD align="right">   2 </TD> <TD align="right"> 0.00 </TD> </TR>
@@ -352,7 +310,7 @@ print(xtable(xt), type = "html")
 ```
 
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
-<!-- Tue Jun  4 21:16:14 2013 -->
+<!-- Tue Jun  4 22:23:24 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> count </TH>  </TR>
   <TR> <TD align="right"> F </TD> <TD align="right"> 2500 </TD> </TR>

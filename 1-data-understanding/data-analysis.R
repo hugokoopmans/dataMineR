@@ -25,13 +25,18 @@ colums <- ncol(data)
 original_case_id = 'caseID'
 #data$caseID <- data$caseID
 
+# map specific outcome field to target
+# remove outcome field so scripts can work uniformly from here on
+data$target <- data$y
+data$y <- NULL
+
 # check if case_id is unique
 if( ! (length(unique(data$caseID)) == length(data$caseID)) ){
         cat('Warning : Case_id appears not unique ! ')}
 
 # exclude original case_id and variables with lot of missing
 #exclude_var_names <- c('caseID','registrnr','X2011tmoktstornaant','X2010stornoaantal')
-exclude_var_names <- c('caseID','p_y','p_real')
+exclude_var_names <- c('p_y','p_real')
 data <- data[,!names(data) %in% exclude_var_names]
 
 ## @knitr var_types
@@ -48,9 +53,11 @@ treat_as_categorical <- NULL
 # transform numeric into factors
 data[treat_as_categorical] <- lapply(data[treat_as_categorical], as.factor)
 
-num_var_names <- names(data[sapply(data, is.numeric)])
+# remove caseID from list of var names to be analysed
+d2a <- subset(data, select = -c(caseID,target))
+num_var_names <- names(d2a[sapply(d2a, is.numeric)])
 num_vars <- length(num_var_names)
-cat_var_names <- names(data[sapply(data, is.factor)])
+cat_var_names <- names(d2a[sapply(d2a, is.factor)])
 cat_vars <- length(cat_var_names)
 
 ## @knitr num-overview-lx
