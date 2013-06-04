@@ -1,0 +1,48 @@
+Behaviour Analysis Report
+========================================================
+
+Todo : add content
+
+Introduction
+------------------------
+This analysis report is generated using R, R-studio and knitr to knitr R code from markdown into html and later LateX format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.
+The behaviour analysis step is the second step in a datamining analysis.
+Steps identified in the datamining process are: 
+* Data analysis 
+* Behaviour analysis 
+* Missing value analysis 
+* Missing value imputation (optional) 
+* Binning 
+* Feature selection 
+* Model development 
+* Model analysis 
+* Model deployment
+
+Information on Dataset 
+------------------------------------
+Basic information from the dataset we are using.
+
+```{r eval=TRUE, echo=FALSE}
+# set global chunk options 
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+# read externalized R from R script
+read_chunk("behaviour-analysis-template.R")
+```
+
+
+```{r read_data}
+
+```
+We are using data from file : `r filename`
+The dataset has `r colums` variables and `r rows` rows.
+
+Variabele types
+-----------------------------
+```{r var_types}
+
+```
+The following variabeles are present in the dataset:
+`r var_names` 
+
+We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
+
