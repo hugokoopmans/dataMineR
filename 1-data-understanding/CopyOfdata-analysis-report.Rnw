@@ -30,7 +30,7 @@
 \author{Hugo Koopmans}
 \title{Data Analysis Report}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
 \maketitle
 \tableofcontents
 \newpage
@@ -45,7 +45,8 @@ Basic information on dataset:\\
 # set global chunk options 
 opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=TRUE, error=TRUE)
 # read externalized R from R script
-read_chunk("data-analysis-template.R")
+setwd("/Users/toni/Dropbox/_Scratch/github/dataMineR")
+read_chunk("1-data-understanding/CopyOfdata-analysis-template.R")
 @
 
 
@@ -84,8 +85,8 @@ In the table below we report the number of observations (n), the smallest observ
 @
 
  
-<<run-numeric, eval=TRUE, include=FALSE>>=
-#<<run-numeric, results='tex'>>=
+% <<run-numeric, eval=TRUE, include=FALSE>>=
+<<run-numeric, results='tex'>>=
 
 @
 

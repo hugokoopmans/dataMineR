@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+  
+  <link rel="stylesheet" href="stylesheets/base.css" />
+  <link rel="stylesheet" href="stylesheets/skeleton.css" />
+  <link rel="stylesheet" href="stylesheets/layout.css" />
+  <link rel="stylesheet" href="stylesheets/fonts.css" />
+  <link rel="stylesheet" href="stylesheets/slimbox2.css" />
+  <link rel="stylesheet" href="stylesheets/custom.css" />
+  <link rel="stylesheet" href="stylesheets/caption.css"/>
+  
+  <link rel="shortcut icon" href="images/favicon.gif" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
+  
+  <script type="text/javascript" src="javascripts/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="javascripts/tabs.js"></script>  <!--remove-->
+  <script type="text/javascript" src="javascripts/custom.js"></script>
+  <script type="text/javascript" src="javascripts/slimbox2.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script type="text/javascript" src="javascripts/jcaption.min.js" /></script>
+</head>
+<body>
+<h1 id="introduction">Introduction</h1>
+<p>The dataMineR script toolbox aims to be a efficient set of R &amp; knitr scripts, that can be used by experienced and less experience dataminers. The toolbox uses the best of the R community to efficently analayse any arbritray dataset and make a predictive model on the target variable. The toolbox uses R <code>version$version.string</code>}, R-studio and knitr(http://yihui.name/knitr/) to knit R code and Latex into nice and readable pdf reports. We have the option to include all R code that is used to generate the plots and calculations (see &quot;chunk_options&quot;). By default this feauture is dissabled.</p>
+<h1 id="cross-industry-standard-process-for-datamining">CRoss Industry Standard Process for datamining</h1>
+<p>In this toolkit we will use the CRISP methodology to guide the datamining proces.</p>
+<h1 id="doc-header-1">Doc header 1</h1>
+<p>Some text explaining the analysis we are doing</p>
+<table>
+<caption>Fitting linear model: mpg ~ wt</caption>
+<col width="25%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="right"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><strong>(Intercept)</strong></td>
+<td align="center">37.29</td>
+<td align="center">1.878</td>
+<td align="center">19.86</td>
+<td align="center">8.242e-19</td>
+</tr>
+<tr class="even">
+<td align="right"><strong>wt</strong></td>
+<td align="center">-5.344</td>
+<td align="center">0.5591</td>
+<td align="center">-9.559</td>
+<td align="center">1.294e-10</td>
+</tr>
+</tbody>
+</table>
+<table>
+<col width="9%" />
+<col width="18%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left"> </th>
+<th align="center">speed</th>
+<th align="center">dist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">****</td>
+<td align="center">Min. : 4.0</td>
+<td align="center">Min. : 2</td>
+</tr>
+<tr class="even">
+<td align="left">****</td>
+<td align="center">1st Qu.:12.0</td>
+<td align="center">1st Qu.: 26</td>
+</tr>
+<tr class="odd">
+<td align="left">****</td>
+<td align="center">Median :15.0</td>
+<td align="center">Median : 36</td>
+</tr>
+<tr class="even">
+<td align="left">****</td>
+<td align="center">Mean :15.4</td>
+<td align="center">Mean : 43</td>
+</tr>
+<tr class="odd">
+<td align="left">****</td>
+<td align="center">3rd Qu.:19.0</td>
+<td align="center">3rd Qu.: 56</td>
+</tr>
+<tr class="even">
+<td align="left">****</td>
+<td align="center">Max. :25.0</td>
+<td align="center">Max. :120</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Fitting linear model: dist ~ speed</caption>
+<col width="25%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="right"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><strong>(Intercept)</strong></td>
+<td align="center">-17.58</td>
+<td align="center">6.758</td>
+<td align="center">-2.601</td>
+<td align="center">0.01232</td>
+</tr>
+<tr class="even">
+<td align="right"><strong>speed</strong></td>
+<td align="center">3.932</td>
+<td align="center">0.4155</td>
+<td align="center">9.464</td>
+<td align="center">1.49e-12</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1" /><p class="caption">plot of chunk unnamed-chunk-1</p>
+</div>
+<hr />
+<p>This report was generated with <a href="http://www.r-project.org/">R</a> (2.15.2) and <a href="https://github.com/rapporter/pander">pander</a> (0.3.1) on x86_64-apple-darwin9.8.0 platform.</p>
+<p align="center">
+  Design: <a href="http://rapport-package.info/"><i>rapport</i> Development Team</a> &copy; 2012 | Backend: <a href="https://github.com/rapporter/pander">pander</a> | License: <a href="http://www.gnu.org/licenses/agpl.html" target="_blank">AGPL3</a> | Styled with <a href="http://www.getskeleton.com/" target="_blank">skeleton</a>
+</p>
+</body>
+</html>

@@ -22,7 +22,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 
-\lhead{\includegraphics[height=0.8cm]{./figure/dikw-logo.png}}
+\lhead{\includegraphics[height=0.8cm]{../figure/dikw-logo.png}}
 \chead{}
 \rhead{\bfseries DataMineR Introduction}
 \lfoot{}
@@ -34,7 +34,7 @@
 \author{Hugo Koopmans}
 \title{DataMineR Introduction}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
 \maketitle
 \tableofcontents
 \newpage
@@ -46,7 +46,7 @@ In this toolkit we will use the CRISP methodology to guide the datamining proces
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=8cm]{./figure/CRISP-circle.png}
+  \includegraphics[width=8cm]{../figure/CRISP-circle.png}
   \caption{CRoss Industry Standard Process for datamining}
 \end{figure}
 
@@ -89,7 +89,8 @@ the created models.
 \end{itemize}
 
 \subsection{Business Understanding}
-\textbf{Determine Business Objectives} \\
+
+\emph{Determine Business Objectives}
 - Background \\
 - Business Objectives \\
 - Business Success Criteria \\

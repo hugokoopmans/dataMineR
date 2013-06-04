@@ -5,10 +5,12 @@
 ## @knitr read_data
 i=1
 # goto data file directory
-setwd("~/r-studio/TdH")
+getwd()
+setwd("/Users/toni/Dropbox/_Scratch/github/dataMineR")
+getwd()
 
 # filename
-filename <- "d5.tab"
+filename <- "data/data-simple-example.tab"
 
 # read dataframe from tab delimets file
 data <- read.delim(filename,strip.white = TRUE)
@@ -57,7 +59,7 @@ tableContinuous(data[,sapply(data, is.numeric)],stats = c("n", "min", "q1", "med
 # # run numeric template for each numeric variable seperately
 out = NULL
 for (i in c(1:num_vars)) {
-  out = c(out, knit_child('da-numeric-template.Rnw', sprintf('da-numeric-template-%d.txt', i)))
+  out = c(out, knit_child('1-data-understanding/CopyOfda-numeric-template.Rnw', sprintf('1-data-understanding/CopyOfda-numeric-template-%d.txt', i)))
 }
 
 # use describe from rms package
@@ -97,7 +99,7 @@ print(xt)
 ## @knitr run-categoric
 out = NULL
 for (i in c(1:num_cat_vars_lim)) {
-  out = c(out, knit_child('da-categorical-template.Rnw', sprintf('da-categorical-template-%d.txt', i)))
+  out = c(out, knit_child('1-data-understaning/CopyOfda-categorical-template.Rnw', sprintf('1-data-understanding/CopyOfda-categorical-template-%d.txt', i)))
 }
 
 # summarize non numeric variables with less then max_levels levels
