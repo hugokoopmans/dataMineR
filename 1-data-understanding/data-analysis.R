@@ -97,44 +97,60 @@ for (i in 1:3) {
 }
 
 ## @knitr cat-overview
-library(reporttools)
-cat_dat <- data[sapply(data, is.factor)]
+c_data <- data[sapply(data, is.factor)]
 # check number of levels per factor
-cat_levels <-  sapply(cat_dat,nlevels)
+c_levels <-  sapply(c_data,nlevels)
 max_levels <- 25
-cat_dat_limited_levels <- cat_dat[,cat_levels <= max_levels]
-cat_dat_not_reported <- cat_dat[,cat_levels > max_levels]
+# trick if only one colum left we need to make sure still a dataframe to keep the names attached
+c_data.limited_levels <- c_data[,c_levels <= max_levels, drop=FALSE ]
+c_data.not_reported <- c_data[,c_levels > max_levels]
 
 # keep only those with limited number of factors for reporting
-cat_var_names_lim <- names(cat_dat_limited_levels)
-cat_var_names_not_reported <- names(cat_dat_not_reported)
-num_cat_vars_lim <- length(cat_var_names_lim)
+c_var_names <- names(c_data.limited_levels)
+if (ncol(c_data.not_reported) == 0){
+  c_var_names.not_reported <- c('no variabes to report')
+} else {
+  c_var_names.not_reported <- names(c_data.not_reported)
+}
+num_c_vars_lim <- length(c_var_names)
 
-
-## @knitr cat-levels
+## @knitr cat-levels-lx
 library(reporttools)
 
 # report missing values
-cat_num_missing <- colSums(is.na(cat_dat))
-t <- data.frame(cat_levels,cat_num_missing)
+c_num_missing <- colSums(is.na(c_data))
+t <- data.frame(c_levels,c_num_missing)
+# sort ascending 
+#t_sorted <- t[with(t, order(nct)), ]
+# xt <- xtable(t)
+# digits(xt) <- c(0,0,0)
+# names(xt) <- c('levels','# missings')
+# print(xt)
+
+## @knitr cat-levels-md
+
+# report missing values
+c_num_missing <- colSums(is.na(c_data))
+t <- data.frame(c_levels,c_num_missing)
 # sort ascending 
 #t_sorted <- t[with(t, order(nct)), ]
 xt <- xtable(t)
 digits(xt) <- c(0,0,0)
 names(xt) <- c('levels','# missings')
-print(xt)
 
-## @knitr run-categoric
+print(xtable(xt),type='html')
+
+## @knitr run-categoric-md
 out = NULL
-for (i in c(1:num_cat_vars_lim)) {
-  out = c(out, knit_child('da-categorical-template.Rnw', sprintf('da-categorical-template-%d.txt', i)))
+for (i in c(1:num_c_vars_lim)) {
+  out = c(out, knit_child('da-categorical.Rmd'))
 }
 
 # summarize non numeric variables with less then max_levels levels
-tableNominal(cat_dat_max)
+#tableNominal(cat_dat_max)
 
 ## @knitr save-data
-datasetName = "data-analysis.tab"
+datasetName = "../data/data-analysis.tab"
 write.table(data,file = datasetName, sep = "\t", row.names=FALSE, quote = FALSE)
 
 ## @knitr run-never
@@ -145,9 +161,7 @@ for (i in c(1:num_vars)){
 
 # outlier test
 library(outliers)
-target <- "AantalMaandenWerkzaamVrouw"
-target <- "Postcode4"
-target <- "InkomenMaand"
+target <- ""
 
 x <- data[[target]]
 outlier_tf = outlier(x,logical=TRUE)

@@ -1,0 +1,117 @@
+% knitr mixed latex en R tot pdf
+% this is the behaviour analysis report
+% here we focus on reporting analysis of individual variables against a target
+
+\documentclass[10pt,a4paper,titlepage]{report}
+
+\usepackage[latin1]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+% bepaald marges van papier
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+% voor plaatsten van figure
+\usepackage{float}
+% voor tabellen
+\usepackage{longtable}
+
+% header and footer definition
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\includegraphics[height=0.8cm]{dikw-logo.png}}
+\chead{}
+\rhead{\bfseries Bevahiour Analysis Report}
+\lfoot{}
+\cfoot{Data $>$ Information $>$ Knowledge $>$ Wisdom}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\author{Hugo Koopmans}
+\title{Behaviour Analysis Report}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\maketitle
+\tableofcontents
+\newpage
+\section{Introduction}
+This analysis report is generated using R, R-studio and knitr to sweave R code and Latex into pdf format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.\\
+The behaviour analysis step is the second step in a datamining analysis.
+\\
+Steps identified in the datamining process are:
+- Data analysis
+- Behaviour analysis
+- Missing value analysis
+- Missing value imputation (optional)
+- Binning
+- Feature selection
+- Model development
+- Model analysis
+- Model deployment
+
+\section{Preparing the dataset}
+Basic information on dataset:\\
+<<chunk_options, echo=FALSE>>=
+# set global chunk options 
+opts_chunk$set(echo=TRUE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+# read externalized R from R script
+read_chunk("behaviour-analysis-template.R")
+@
+
+
+<<read_data>>=
+
+@
+\\
+We are using data from file : \Sexpr{filename}.\\
+The dataset has \Sexpr{colums} variables and \Sexpr{rows} rows.
+
+\subsection{Variabele types}
+<<var_types>>=
+
+@
+The following variabele are present in the dataset:\\
+\Sexpr{var_names} 
+\\
+We have \Sexpr{num_vars} numeric variables and \Sexpr{cat_vars} categorical variables (or factors in R).
+
+\subsection{Target defenition}
+This analysis aims to report of the behaviour of each individual 'predictor' to a target variable. The target variable should be a categorical variable having two categories(or factor levels).\\
+
+The target variable is \Sexpr{target_name}.
+
+The target has the following proportion of outcomes:\\
+<<target_def,results='tex'>>=
+
+@
+
+
+\subsection{Missing values}
+Before we can do model analysis we need to take care of missing values. The simplest appraoch is to delete cases including one or more missing entries but this can remove a large proportion of valuable data.\\
+We can also remove individual variables if they have a high percentage of missing atributes.\\
+Or we can replace or impute missing data with for instance an average or most frequent value. Actually changing the data. For this we use kNN nearest neighbors. 
+
+For now we will throw away all cases that have one or more missing attribute.
+
+This dataset has \Sexpr{nrow(data[complete.cases(data),])} complete cases out of \Sexpr{nrow(data)}, which is \Sexpr{nrow(data[complete.cases(data),])/nrow(data)} percent.
+
+<<missing_def>>=
+
+@
+
+\section{Behaviour analysis}
+The selected inputs have the following raw predictive capacity:
+
+<< raw_pred_cap,results='tex' >>=
+
+@
+
+\section{Recoding}
+
+
+Next step is model building.
+
+\end{document}

@@ -123,7 +123,7 @@ print(xtable(tddf), type = "html")
 ```
 
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
-<!-- Fri May 31 10:47:11 2013 -->
+<!-- Tue Jun  4 21:16:13 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> n obs </TH> <TH> n missing </TH> <TH> min </TH> <TH> mean </TH> <TH> median </TH> <TH> max </TH>  </TR>
   <TR> <TD align="right"> age </TD> <TD align="right"> 5000.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 18.01 </TD> <TD align="right"> 42.81 </TD> <TD align="right"> 40.78 </TD> <TD align="right"> 84.98 </TD> </TR>
@@ -280,3 +280,98 @@ hp + theme(axis.title.x = element_blank(), axis.text.x = element_text(size = 10)
 
 
 
+Categorical variables
+======================================
+Here we analyse all categorical variables. We first check the number of different levels in each category(or factor). Then we do a bar plot to show the distribution for each variable.  
+
+Overview
+--------------------------------------
+In the following table we will see each variable printed with it's unique levels. Beside each level a count is made and a precentage calculated. In the last colum we find a culumative count summing the total up to 100\%. 
+
+
+```r
+c_data <- data[sapply(data, is.factor)]
+# check number of levels per factor
+c_levels <- sapply(c_data, nlevels)
+max_levels <- 25
+# trick if only one colum left we need to make sure still a dataframe to
+# keep the names attached
+c_data.limited_levels <- c_data[, c_levels <= max_levels, drop = FALSE]
+c_data.not_reported <- c_data[, c_levels > max_levels]
+
+# keep only those with limited number of factors for reporting
+c_var_names <- names(c_data.limited_levels)
+if (ncol(c_data.not_reported) == 0) {
+    c_var_names.not_reported <- c("no variabes to report")
+} else {
+    c_var_names.not_reported <- names(c_data.not_reported)
+}
+num_c_vars_lim <- length(c_var_names)
+```
+
+
+We see that the number of levels can be quite big, for reporting we will omit all variables with more then  25 levels. These will not be reported in the subsections below.
+
+```r
+# report missing values
+c_num_missing <- colSums(is.na(c_data))
+t <- data.frame(c_levels,c_num_missing)
+# sort ascending 
+#t_sorted <- t[with(t, order(nct)), ]
+xt <- xtable(t)
+digits(xt) <- c(0,0,0)
+names(xt) <- c('levels','# missings')
+
+print(xtable(xt),type='html')
+```
+
+<!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
+<!-- Tue Jun  4 21:16:14 2013 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> levels </TH> <TH> # missings </TH>  </TR>
+  <TR> <TD align="right"> gender </TD> <TD align="right">   2 </TD> <TD align="right"> 0.00 </TD> </TR>
+   </TABLE>
+
+
+Variables with to many levels to report are : no variabes to report .  
+
+
+
+
+
+Variabele gender
+----------------------------------------
+The table shows the number of observations of each level.
+
+
+```r
+library(xtable)
+xt <- xtable(table(c_data[c_var_names[i]]), caption = c_var_names[i])
+names(xt) <- c("count")
+print(xtable(xt), type = "html")
+```
+
+<!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
+<!-- Tue Jun  4 21:16:14 2013 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> count </TH>  </TR>
+  <TR> <TD align="right"> F </TD> <TD align="right"> 2500 </TD> </TR>
+  <TR> <TD align="right"> M </TD> <TD align="right"> 2500 </TD> </TR>
+   </TABLE>
+
+dus
+
+
+
+Behavioural Analysis
+----------------------------
+The next step is behavioural analysis.
+The current dataset is now saved.
+
+```r
+datasetName = "../data/data-analysis.tab"
+write.table(data, file = datasetName, sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+
+Dataset saved as : ../data/data-analysis.tab
