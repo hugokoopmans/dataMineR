@@ -1,6 +1,10 @@
 dataMineR
 =========
 
+Update
+-----------
+We are now transforming from latex to markdown
+
 R scripts for datamining.
 
 This project aims to efficiently implement the CRISP datamining cycle.

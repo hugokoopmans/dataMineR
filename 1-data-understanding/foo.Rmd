@@ -1,0 +1,13 @@
+
+
+```{r loopResults, include=FALSE}
+results = list(result1 = data.frame(x=rnorm(3), y=rnorm(3)), result2=data.frame(x=rnorm(3), y=rnorm(3)))
+out=NULL
+
+for(i in 1:length(results)) {
+res = names(results)[i]
+out = c(out, knit_child('fooSub.Rmd'))
+}
+```
+
+`r paste(out, collapse = '\n')`

@@ -53,7 +53,12 @@ confint(mylogit)
 
 p_y <- mylogit$fit
 
-data <- data.frame(age,income,gender,p_real,y,p_y)
+data <- data.frame(caseID,age,income,gender,p_real,p_y,y)
+
+# case ID
+rowID <- as.numeric(row.names(data))
+
+data$caseID <- rowID
 
 Bad <- subset(data,data$y %in% c('0'))
 Good <- subset(data,data$y %in% c('1'))
@@ -68,10 +73,10 @@ library(gridExtra)
 
 pa <- ggplot(data, aes(age,p_y)) + geom_point() + geom_smooth()
 pi <- ggplot(data, aes(income,p_y)) + geom_point() + geom_smooth()
-pi <- ggplot(data, aes(p_y,gender)) + geom_histogram() + facet_grid(p_y ~ gender)
+#pi <- ggplot(data, aes(p_y,gender)) + geom_histogram() + facet_grid(p_y ~ gender)
 
 grid.arrange(pa,pi,ncol=2)
 
 # export to flat file
-write.table(data, file="./data/data-simple-example.tab",sep="/t",row.names = FALSE)
+write.table(data, file="../data/data-simple-example.tab",sep="\t",row.names = FALSE)
 

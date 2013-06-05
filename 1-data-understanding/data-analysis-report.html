@@ -1,0 +1,236 @@
+<h1 id="data-analysis-report">Data Analysis Report</h1>
+<p>Todo : add table of content</p>
+<h2 id="introduction">Introduction</h2>
+<p>This data analysis report is generated using R-studio and knitr to knit R code and markdown into html format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled. The data analysis step is the first step an a datamining analysis.</p>
+<h2 id="dataset-basic-artifacts">Dataset Basic Artifacts</h2>
+<p>Basic information from the dataset we are using.</p>
+<h3 id="basic-dataset-information">Basic dataset information</h3>
+<pre class="sourceCode r"><code class="sourceCode r">i = <span class="dv">1</span>
+<span class="co"># &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:1-data-understanding/CopyOfdata-analysis-template.R # goto</span>
+<span class="co"># data file directory getwd()</span>
+<span class="co"># setwd(&#39;/Users/toni/Dropbox/_Scratch/github/dataMineR&#39;) getwd()</span>
+<span class="co"># </span>
+<span class="co"># # filename filename &lt;- &#39;../data/data-simple-example.tab&#39; =======</span>
+<span class="co"># </span>
+<span class="co"># # data location full path to filename from working directory(=project</span>
+<span class="co"># dir)</span>
+path2file &lt;- <span class="st">&quot;../data/data-simple-example.tab&quot;</span>
+<span class="co"># &gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+<span class="co"># 84fdd91b026897fd5a7ddc2c775d4294a5b4a8ab:1-data-understanding/data-analysis.R</span>
+
+<span class="co"># read dataframe from tab delimets file</span>
+data &lt;- <span class="kw">read.delim</span>(path2file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">strip.white =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># determine number of rows and colums in dataframe</span>
+rows &lt;- <span class="kw">nrow</span>(data)
+colums &lt;- <span class="kw">ncol</span>(data)
+
+<span class="co"># case_id = registrnr</span>
+original_case_id = <span class="st">&quot;caseID&quot;</span>
+<span class="co"># data$caseID &lt;- data$caseID</span>
+
+<span class="co"># check if case_id is unique</span>
+if (!(<span class="kw">length</span>(<span class="kw">unique</span>(data$caseID)) == <span class="kw">length</span>(data$caseID))) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Case_id appears not unique ! &quot;</span>)
+}
+
+<span class="co"># exclude original case_id and variables with lot of missing</span>
+<span class="co"># exclude_var_names &lt;-</span>
+<span class="co"># c(&#39;caseID&#39;,&#39;registrnr&#39;,&#39;X2011tmoktstornaant&#39;,&#39;X2010stornoaantal&#39;)</span>
+exclude_var_names &lt;- <span class="kw">c</span>(<span class="st">&quot;caseID&quot;</span>, <span class="st">&quot;p_y&quot;</span>, <span class="st">&quot;p_real&quot;</span>)
+data &lt;- data[, !<span class="kw">names</span>(data) %in% exclude_var_names]</code></pre>
+<p>We are using data from file : ../data/data-simple-example.tab The dataset has 7 variables and 5000 rows.</p>
+<p>The case identifyer is <em>caseID</em> this is unique for all cases.</p>
+<h2 id="variabele-types">Variabele types</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># names in header</span>
+var_names &lt;- <span class="kw">names</span>(data)
+
+<span class="co"># sometimes variabels are in the dataset as codes, they appear numeric but</span>
+<span class="co"># code for a category</span>
+
+## treat_as_categorical &lt;-
+## c(&#39;catHHINKOMEN&#39;,&#39;catHHSOCIALE&#39;,&#39;catHHOPLEIDI&#39;,&#39;catHHLEVENSF&#39;,&#39;catHHGEOTYPE&#39;,&#39;catHHTYPEWO&#39;,
+##&#39;catHHEIGENDO&#39;,&#39;catHHWOZWAA&#39;, &#39;catBELEGGERS&#39;,&#39;catLENERS&#39;,   &#39;catSPAARDERS&#39;,&#39;catSWITCHGEVO&#39;
+## ,&#39;catMERKENTROU&#39;)
+treat_as_categorical &lt;- <span class="ot">NULL</span>
+
+<span class="co"># transform numeric into factors</span>
+data[treat_as_categorical] &lt;- <span class="kw">lapply</span>(data[treat_as_categorical], as.factor)
+
+num_var_names &lt;- <span class="kw">names</span>(data[<span class="kw">sapply</span>(data, is.numeric)])
+num_vars &lt;- <span class="kw">length</span>(num_var_names)
+cat_var_names &lt;- <span class="kw">names</span>(data[<span class="kw">sapply</span>(data, is.factor)])
+cat_vars &lt;- <span class="kw">length</span>(cat_var_names)</code></pre>
+<p>The following variabeles are present in the dataset: age, income, gender, y</p>
+<p>We have 3 numeric variables and 1 categorical variables (or factors in R).</p>
+<h2 id="excluded-variables">Excluded variables</h2>
+<p>From the varables provided the folowing list will be excluded in this anlysis: caseID, p_y, p_real</p>
+<p>Sometimes categoric variables are present as coded numbers. These should be treated as factors. In this dataset the following variables will be used as factors(categoric):</p>
+<p>We have 3 numeric variables and 1 categorical variables (or factors in R).</p>
+<h1 id="numeric-variables">Numeric variables</h1>
+<p>Here we analyse all numeric variables. We start with an overview on basic statistics per variable. We check for missing values. We do a histogram plot to show the distribution for this variable. And we test for outliers.</p>
+<h2 id="overview">Overview</h2>
+<p>In the table below we report the number of observations (n), the smallest observation (min), the first quantile (q1), the media , the mean, last quantile, the largest observation (max), and the nber of missing values (na).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xtable)
+
+<span class="co"># summarize numeric variables</span>
+td &lt;- data[, <span class="kw">sapply</span>(data, is.numeric)]
+td.min &lt;- <span class="kw">sapply</span>(td, min, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+td.mean &lt;- <span class="kw">sapply</span>(td, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+td.median &lt;- <span class="kw">sapply</span>(td, median, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+td.max &lt;- <span class="kw">sapply</span>(td, max, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+td.n &lt;- <span class="kw">as.numeric</span>(<span class="kw">apply</span>(td, <span class="dv">2</span>, function(x) <span class="kw">length</span>(<span class="kw">which</span>(!<span class="kw">is.na</span>(x)))))
+td.na &lt;- <span class="kw">as.numeric</span>(<span class="kw">apply</span>(td, <span class="dv">2</span>, function(x) <span class="kw">length</span>(<span class="kw">which</span>(<span class="kw">is.na</span>(x)))))
+td.q &lt;- <span class="kw">apply</span>(td, <span class="dv">2</span>, quantile, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+
+tddf &lt;- <span class="kw">data.frame</span>(<span class="kw">cbind</span>(td.n, td.na, td.min, td.mean, td.median, td.max))
+<span class="kw">names</span>(tddf) &lt;- <span class="kw">c</span>(<span class="st">&quot;n obs&quot;</span>, <span class="st">&quot;n missing&quot;</span>, <span class="st">&quot;min&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;max&quot;</span>)
+
+<span class="kw">print</span>(<span class="kw">xtable</span>(tddf), <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre>
+<!-- html table generated in R 2.15.2 by xtable 1.7-1 package -->
+<!-- Tue Jun  4 21:38:38 2013 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> 
+n obs
+</TH> <TH> 
+n missing
+</TH> <TH> 
+min
+</TH> <TH> 
+mean
+</TH> <TH> 
+median
+</TH> <TH> 
+max
+</TH>  </TR>
+  <TR> <TD align="right"> 
+age
+</TD> <TD align="right"> 
+5000.00
+</TD> <TD align="right"> 
+0.00
+</TD> <TD align="right"> 
+18.01
+</TD> <TD align="right"> 
+42.81
+</TD> <TD align="right"> 
+40.78
+</TD> <TD align="right"> 
+84.98
+</TD> </TR>
+  <TR> <TD align="right"> 
+income
+</TD> <TD align="right"> 
+5000.00
+</TD> <TD align="right"> 
+0.00
+</TD> <TD align="right"> 
+14556.59
+</TD> <TD align="right"> 
+34062.62
+</TD> <TD align="right"> 
+32953.06
+</TD> <TD align="right"> 
+83610.97
+</TD> </TR>
+  <TR> <TD align="right"> 
+y
+</TD> <TD align="right"> 
+5000.00
+</TD> <TD align="right"> 
+0.00
+</TD> <TD align="right"> 
+0.00
+</TD> <TD align="right"> 
+0.97
+</TD> <TD align="right"> 
+1.00
+</TD> <TD align="right"> 
+1.00
+</TD> </TR>
+   </TABLE>
+
+<pre class="sourceCode r"><code class="sourceCode r">
+## run numeric template for each numeric variable seperately</code></pre>
+<h2 id="variabele-age">Variabele age</h2>
+<p>Missing : 0<br />Minimum value : 18.0131<br />Percentile 1 : 18.5014<br />Percentile 99 : 81.9667<br />Maximum value : 84.9796</p>
+<pre class="sourceCode r"><code class="sourceCode r">warn_extreme_values = <span class="dv">3</span>
+d1 = <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">2</span>] &gt; 
+    warn_extreme_values * <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, 
+        <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">1</span>]
+d99 = <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">101</span>] &gt; 
+    warn_extreme_values * <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, 
+        <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">100</span>]
+if (d1) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Suspect extreme values in left tail&quot;</span>)
+}
+if (d99) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Suspect extreme values in right tail&quot;</span>)
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre>
+<pre><code>## Loading required package: methods</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+v &lt;- num_var_names[i]
+hp &lt;- <span class="kw">ggplot</span>(<span class="kw">na.omit</span>(data), <span class="kw">aes_string</span>(<span class="dt">x =</span> v)) + <span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, 
+    <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(<span class="kw">na.omit</span>(data[[v]]))/<span class="dv">100</span>))
+
+hp + <span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>)) + 
+    <span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>))</code></pre>
+<pre><code>## Warning: position_stack requires constant width: output may be incorrect</code></pre>
+<div class="figure">
+<img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2" /><p class="caption">plot of chunk unnamed-chunk-2</p>
+</div>
+<h2 id="variabele-income">Variabele income</h2>
+<p>Missing : 0<br />Minimum value : 1.4557 × 10<sup>4</sup><br />Percentile 1 : 1.8644 × 10<sup>4</sup><br />Percentile 99 : 5.9851 × 10<sup>4</sup><br />Maximum value : 8.3611 × 10<sup>4</sup></p>
+<pre class="sourceCode r"><code class="sourceCode r">warn_extreme_values = <span class="dv">3</span>
+d1 = <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">2</span>] &gt; 
+    warn_extreme_values * <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, 
+        <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">1</span>]
+d99 = <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">101</span>] &gt; 
+    warn_extreme_values * <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, 
+        <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">100</span>]
+if (d1) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Suspect extreme values in left tail&quot;</span>)
+}
+if (d99) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Suspect extreme values in right tail&quot;</span>)
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+
+v &lt;- num_var_names[i]
+hp &lt;- <span class="kw">ggplot</span>(<span class="kw">na.omit</span>(data), <span class="kw">aes_string</span>(<span class="dt">x =</span> v)) + <span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, 
+    <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(<span class="kw">na.omit</span>(data[[v]]))/<span class="dv">100</span>))
+
+hp + <span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>)) + 
+    <span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>))</code></pre>
+<pre><code>## Warning: position_stack requires constant width: output may be incorrect</code></pre>
+<div class="figure">
+<img src="figure/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4" /><p class="caption">plot of chunk unnamed-chunk-4</p>
+</div>
+<h2 id="variabele-y">Variabele y</h2>
+<p>Missing : 0<br />Minimum value : 0<br />Percentile 1 : 0<br />Percentile 99 : 1<br />Maximum value : 1</p>
+<pre class="sourceCode r"><code class="sourceCode r">warn_extreme_values = <span class="dv">3</span>
+d1 = <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">2</span>] &gt; 
+    warn_extreme_values * <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, 
+        <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">1</span>]
+d99 = <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">101</span>] &gt; 
+    warn_extreme_values * <span class="kw">quantile</span>(<span class="kw">na.omit</span>(data[[num_var_names[i]]]), <span class="dt">probs =</span> <span class="kw">seq</span>(<span class="dv">0</span>, 
+        <span class="dv">1</span>, <span class="fl">0.01</span>))[<span class="dv">100</span>]
+if (d1) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Suspect extreme values in left tail&quot;</span>)
+}
+if (d99) {
+    <span class="kw">cat</span>(<span class="st">&quot;Warning : Suspect extreme values in right tail&quot;</span>)
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+
+v &lt;- num_var_names[i]
+hp &lt;- <span class="kw">ggplot</span>(<span class="kw">na.omit</span>(data), <span class="kw">aes_string</span>(<span class="dt">x =</span> v)) + <span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, 
+    <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(<span class="kw">na.omit</span>(data[[v]]))/<span class="dv">100</span>))
+
+hp + <span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>)) + 
+    <span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>))</code></pre>
+<pre><code>## Warning: position_stack requires constant width: output may be incorrect</code></pre>
+<div class="figure">
+<img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6" /><p class="caption">plot of chunk unnamed-chunk-6</p>
+</div>
