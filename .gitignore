@@ -9,10 +9,11 @@
 
 .DS_Store
 
+# Generated files:
 *.pdf
 *.html
 *.png
-
+*.md
 
 1-data-understanding/data-analysis-report.Rnw
 1-data-understanding/data-analysis-report.html
