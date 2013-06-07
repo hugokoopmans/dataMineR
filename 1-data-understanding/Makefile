@@ -1,4 +1,5 @@
 FILE=Data-Analysis-Report
+PDFTEMPLATE=../templates/pdf/extended.tex
 OPT_PDF=--variable numbersections --toc --variable toc-depth=2 --variable documentclass=memoir --variable fontsize=11pt 
 # -F +implicit_header_references
 # --variable documentclass=tufte-handout 
@@ -17,4 +18,4 @@ tex: $(FILE).md
 	pandoc $(FILE).md -o $(FILE).tex --template mytemplate.tex
 
 pdf: $(FILE).md
-	pandoc $(FILE).md -o $(FILE).pdf --template mytemplate.tex --listings $(OPT_PDF)
+	pandoc $(FILE).md -o $(FILE).pdf --template $(PDFTEMPLATE) --listings $(OPT_PDF)

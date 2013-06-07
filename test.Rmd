@@ -1,4 +1,0 @@
-Test `r i`
-=========
-
-Stuff on variabele `r i` goes here
