@@ -1,6 +1,7 @@
-Behaviour Analysis Report
+Data Preperation Report
 ========================================================
 
+Todo : add ToC
 
 Introduction
 ------------------------
@@ -21,30 +22,23 @@ Information on Dataset
 ------------------------------------
 Basic information from the dataset we are using.
 
-```{r eval=TRUE, echo=FALSE}
-# set global chunk options 
-opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
-# read externalized R from R script
-read_chunk("behaviour-analysis-template.R")
-# read_chunk("data-preperation.R")
-```
 
 
-```{r read_data}
 
-```
-We are using data from file : `r filename`
-The dataset has `r colums` variables and `r rows` rows.
+
+
+
+We are using data from file : ../data/data-analysis.tab
+The dataset has 5 variables and 5000 rows.
 
 Variabele types
 -----------------------------
-```{r var_types}
 
-```
+
 The following variabeles are present in the dataset:
-`r var_names` 
+caseID, age, income, gender, target 
 
-We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
+We have 4 numeric variables and 1 categorical variables (or factors in R).
 
 Target defenition
 -----------------------------
@@ -54,9 +48,14 @@ The target variable is defined in the previous step.
 
 The target has the following proportion of outcomes:
 
-```{r target_def,results='asis'}
+<!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
+<!-- Tue Jun  4 22:41:25 2013 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> count </TH> <TH> % </TH>  </TR>
+  <TR> <TD align="right"> 0 </TD> <TD align="right"> 176 </TD> <TD align="right"> 3.52 </TD> </TR>
+  <TR> <TD align="right"> 1 </TD> <TD align="right"> 4824 </TD> <TD align="right"> 96.48 </TD> </TR>
+   </TABLE>
 
-```
 
 
 Missing values
@@ -67,17 +66,21 @@ Or we can replace or impute missing data with for instance an average or most fr
 
 For now we will throw away all cases that have one or more missing attribute.
 
-This dataset has `r nrow(data)-nrow(data[complete.cases(data),])` missing cases out of `r nrow(data)`, which is `r (nrow(data)-nrow(data[complete.cases(data),]))/nrow(data)*100` percent.
+This dataset has 0 missing cases out of 5000, which is 0 percent.
 
-```{r missing_def}
 
-```
+
 
 Behaviour analysis
 ------------------------------
 The selected inputs have the following raw predictive capacity:
 
-```{r raw_pred_cap, results='asis'}
-
-```
+<!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
+<!-- Tue Jun  4 22:41:25 2013 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> variable </TH> <TH> Kendall Tau correlation </TH>  </TR>
+  <TR> <TD align="right"> 1 </TD> <TD> age </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> 2 </TD> <TD> income </TD> <TD align="right">  </TD> </TR>
+  <TR> <TD align="right"> 3 </TD> <TD> gender </TD> <TD align="right">  </TD> </TR>
+   </TABLE>
 

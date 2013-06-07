@@ -1,6 +1,7 @@
 Behaviour Analysis Report
 ========================================================
 
+Todo : add content
 
 Introduction
 ------------------------
@@ -26,7 +27,6 @@ Basic information from the dataset we are using.
 opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
 # read externalized R from R script
 read_chunk("behaviour-analysis-template.R")
-# read_chunk("data-preperation.R")
 ```
 
 
@@ -45,39 +45,4 @@ The following variabeles are present in the dataset:
 `r var_names` 
 
 We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
-
-Target defenition
------------------------------
-This analysis aims to report of the behaviour of each individual 'predictor' to a target variable. The target variable should be a categorical variable having two categories(or factor levels).  
-
-The target variable is defined in the previous step.
-
-The target has the following proportion of outcomes:
-
-```{r target_def,results='asis'}
-
-```
-
-
-Missing values
--------------------------
-Before we can do model analysis we need to take care of missing values. The simplest appraoch is to delete cases including one or more missing entries but this can remove a large proportion of valuable data.
-We can also remove individual variables if they have a high percentage of missing atributes.
-Or we can replace or impute missing data with for instance an average or most frequent value. Actually changing the data. For this we can use kNN nearest neighbors. 
-
-For now we will throw away all cases that have one or more missing attribute.
-
-This dataset has `r nrow(data)-nrow(data[complete.cases(data),])` missing cases out of `r nrow(data)`, which is `r (nrow(data)-nrow(data[complete.cases(data),]))/nrow(data)*100` percent.
-
-```{r missing_def}
-
-```
-
-Behaviour analysis
-------------------------------
-The selected inputs have the following raw predictive capacity:
-
-```{r raw_pred_cap, results='asis'}
-
-```
 
