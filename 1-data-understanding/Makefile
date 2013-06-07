@@ -15,7 +15,7 @@ spdf: $(FILE).md
 	pandoc $(FILE).md -o $(FILE).pdf --template mytemplate.tex --highlight-style tango
 
 tex: $(FILE).md 
-	pandoc $(FILE).md -o $(FILE).tex --template mytemplate.tex
+	pandoc $(FILE).md -o $(FILE).tex --template $(PDFTEMPLATE) -o $(FILE).tex
 
 pdf: $(FILE).md
 	pandoc $(FILE).md -o $(FILE).pdf --template $(PDFTEMPLATE) --listings $(OPT_PDF)

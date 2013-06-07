@@ -24,6 +24,7 @@ Basic information from the dataset we are using.
 ```{r setup, echo=FALSE, cache=FALSE}
 # set global chunk options APPERENTLY CANNOT BE EXTERNALIZED
 opts_chunk$set(echo=TRUE, cache=FALSE, tidy=TRUE, error=TRUE)
+library(pander)
 # read externalized R from R script
 read_chunk("data-analysis.R")
 ```

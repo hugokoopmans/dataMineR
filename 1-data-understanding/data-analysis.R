@@ -59,7 +59,7 @@ library(reporttools)
 tableContinuous(data[,sapply(data, is.numeric)],stats = c("n", "min", "q1", "median", "mean", "q3", "max", "na"))
 
 ## @knitr num-overview-md
-library(xtable)
+#library(xtable)
 
 # summarize numeric variables
 td <- data[,sapply(data, is.numeric)]
@@ -74,7 +74,10 @@ td.q <- apply(td,2,quantile,na.rm = TRUE)
 tddf <- data.frame(cbind(td.n,td.na,td.min,td.mean,td.median,td.max))
 names(tddf) <- c('n obs','n missing','min','mean','median','max')
 
-print(xtable(tddf),type='html')
+#print(xtable(tddf),type='html')
+panderOptions('table.split.table', Inf)
+pander(tddf)
+panderOptions('table.split.table', 80)
 
 ## run numeric template for each numeric variable seperately
 
