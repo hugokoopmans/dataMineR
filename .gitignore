@@ -15,25 +15,21 @@
 
 
 1-data-understanding/data-analysis-report.Rnw
-
 1-data-understanding/data-analysis-report.html
-
 1-data-understanding/data-analysis-report.md
-
 1-data-understanding/data-analysis-report.pdf
-
 1-data-understanding/figure/unnamed-chunk-2.png
 
 *.png
-
 *.png
 
 1-data-understanding/figure/unnamed-chunk-6.png
-
 1-data-understanding/figure/unnamed-chunk-4.png
-
 1-data-understanding/figure/unnamed-chunk-4.png
 
 data/data-simple-example.tab
-
 generate-example-data.R
+
+da-numeric.md
+da-categorical.md
+data-analysis-report.md
