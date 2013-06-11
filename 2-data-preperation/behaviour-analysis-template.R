@@ -16,16 +16,14 @@ i=1
 
 ## @knitr setup
 
-# goto data file directory
-setwd("~/r-studio/TdH")
-
+# Using the relative path
 
 
 ## @knitr read_data
 
 #### parameters ####
 # filename
-filename <- "data-analysis.tab"
+filename <- "../data/data-analysis.tab"
 # sample size in percentage
 ssize = 10
 
@@ -62,11 +60,14 @@ if (is.numeric(data[[target_name]])){
 
 # display counts and percentage on target
 library(xtable)
+library(pander)
 t <- cbind(table(data$target),100*prop.table(table(data$target)))
 xt <- xtable(t)
 digits(xt) <- c(0,0,2)
 names(xt) <- c('count','%')
 print(xt)
+
+pander(xt)
 
 ## @knitr missing_def
 
