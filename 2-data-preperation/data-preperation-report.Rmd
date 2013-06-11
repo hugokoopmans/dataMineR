@@ -1,7 +1,6 @@
-Data Preperation Report
+Behaviour Analysis Report
 ========================================================
 
-Todo : add ToC
 
 Introduction
 ------------------------
@@ -26,7 +25,8 @@ Basic information from the dataset we are using.
 # set global chunk options 
 opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
 # read externalized R from R script
-read_chunk("data-preperation.R")
+read_chunk("behaviour-analysis-template.R")
+# read_chunk("data-preperation.R")
 ```
 
 
@@ -80,3 +80,4 @@ The selected inputs have the following raw predictive capacity:
 ```{r raw_pred_cap, results='asis'}
 
 ```
+

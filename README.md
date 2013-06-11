@@ -1,6 +1,13 @@
 dataMineR
 =========
 
+Update 7/6/2013
+---------------
+
+In step 1, we now render tables in extended (Pandoc) markdown. This means that Pandoc can be used to output either pdf
+or html in a well-formatted way.
+
+
 Update
 -----------
 We are now transforming from latex to markdown
