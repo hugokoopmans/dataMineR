@@ -1,6 +1,0 @@
-Results for `r res`
----------------------------
-
-```{r}
- plot(results[[res]]$x, results[[res]]$y)
-```
