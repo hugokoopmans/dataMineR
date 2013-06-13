@@ -8,7 +8,7 @@ library(foreach)
 library(rms)
 
 # source newer version of this function
-source('knnImputation.R')
+#source('knnImputation.R')
 
 # we define knitr chunks here which  can be picked up by rnw files for document generation
 i=1

@@ -59,7 +59,7 @@ library(reporttools)
 tableContinuous(data[,sapply(data, is.numeric)],stats = c("n", "min", "q1", "median", "mean", "q3", "max", "na"))
 
 ## @knitr num-overview-md
-#library(xtable)
+library(pander)
 
 # summarize numeric variables
 td <- data[,sapply(data, is.numeric)]
@@ -81,12 +81,6 @@ panderOptions('table.split.table', 80)
 
 ## run numeric template for each numeric variable seperately
 
-## @knitr run-numeric-lx
-out = NULL
-for (i in c(1:num_vars)) {
-  out = c(out, knit_child('1-data-understanding/CopyOfda-numeric-template.Rnw', sprintf('1-data-understanding/CopyOfda-numeric-template-%d.txt', i)))
-}
-
 ## @knitr run-numeric-md
 out = NULL
 for (i in c(1:num_vars)) {
@@ -100,68 +94,43 @@ for (i in 1:3) {
 }
 
 ## @knitr cat-overview
-library(reporttools)
-cat_dat <- data[sapply(data, is.factor)]
+c_data <- data[sapply(data, is.factor)]
 # check number of levels per factor
-cat_levels <-  sapply(cat_dat,nlevels)
+c_levels <-  sapply(c_data,nlevels)
 max_levels <- 25
-cat_dat_limited_levels <- cat_dat[,cat_levels <= max_levels]
-cat_dat_not_reported <- cat_dat[,cat_levels > max_levels]
+# trick if only one colum left we need to make sure still a dataframe to keep the names attached
+c_data.limited_levels <- c_data[,c_levels <= max_levels, drop=FALSE ]
+c_data.not_reported <- c_data[,c_levels > max_levels]
 
 # keep only those with limited number of factors for reporting
-cat_var_names_lim <- names(cat_dat_limited_levels)
-cat_var_names_not_reported <- names(cat_dat_not_reported)
-num_cat_vars_lim <- length(cat_var_names_lim)
+c_var_names <- names(c_data.limited_levels)
+if (ncol(c_data.not_reported) == 0){
+  c_var_names.not_reported <- c('no variabes to report')
+} else {
+  c_var_names.not_reported <- names(c_data.not_reported)
+}
+num_c_vars_lim <- length(c_var_names)
 
-
-## @knitr cat-levels
-library(reporttools)
-
+## @knitr cat-levels-md
+library(xtable)
 # report missing values
-cat_num_missing <- colSums(is.na(cat_dat))
-t <- data.frame(cat_levels,cat_num_missing)
+c_num_missing <- colSums(is.na(c_data))
+t <- data.frame(c_levels,c_num_missing)
 # sort ascending 
 #t_sorted <- t[with(t, order(nct)), ]
 xt <- xtable(t)
 digits(xt) <- c(0,0,0)
 names(xt) <- c('levels','# missings')
-print(xt)
 
-## @knitr run-categoric
+print(xtable(xt),type='html')
+
+## @knitr run-categoric-md
 out = NULL
-for (i in c(1:num_cat_vars_lim)) {
-  out = c(out, knit_child('1-data-understaning/CopyOfda-categorical-template.Rnw', sprintf('1-data-understanding/CopyOfda-categorical-template-%d.txt', i)))
+for (i in c(1:num_c_vars_lim)) {
+  out = c(out, knit_child('da-categorical.Rmd'))
 }
-
-# summarize non numeric variables with less then max_levels levels
-tableNominal(cat_dat_max)
 
 ## @knitr save-data
-datasetName = "data-analysis.tab"
+datasetName = "../data/data-analysis.tab"
 write.table(data,file = datasetName, sep = "\t", row.names=FALSE, quote = FALSE)
-
-## @knitr run-never
-for (i in c(1:num_vars)){
-  print(num_var_names[i])
-}
-
-
-# outlier test
-library(outliers)
-target <- "AantalMaandenWerkzaamVrouw"
-target <- "Postcode4"
-target <- "InkomenMaand"
-
-x <- data[[target]]
-outlier_tf = outlier(x,logical=TRUE)
-#This gives an array with all values False, except for the outlier (as defined in the package documentation "Finds value with largest difference between it and sample mean, which can be an outlier").  That value is returned as True.
-find_outlier = which(outlier_tf==TRUE,arr.ind=TRUE)
-#This finds the location of the outlier by finding that "True" value within the "outlier_tf" array.
-data_new = data[-find_outlier,]
-#This creates a new dataset based on the old data, removing the one row that contains the outlier 
-
-# extremevalues
-library(extremevalues)
-getOutliers(x, method="I",distribution="lognormal")
-
 
