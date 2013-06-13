@@ -75,7 +75,7 @@ This dataset has `r nrow(data)-nrow(data[complete.cases(data),])` missing cases 
 
 Behaviour analysis
 ------------------------------
-The selected inputs have the following raw predictive capacity:
+The selected inputs have the following raw predictive capacity for predicting the target outcome:
 
 ```{r raw_pred_cap, results='asis'}
 

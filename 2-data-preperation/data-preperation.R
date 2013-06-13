@@ -84,13 +84,15 @@ data <- na.omit(data)
 
 ## @knitr raw_pred_cap
 # kendall tau over all predictors
+# somers Dxy by Frank Ahrrell
+library(Hmisc)
 
 # method still slow , sampling needed
-ssize <- 1
+ssize <- 100 # in percent of dataset
 n <- round(nrow(data)*ssize/100)
 s_data <- data[sample(nrow(data), size=n), ]
 
-# create indices for all colums we want to calc correlation measure
+# create indices for all colums we want to do calculations
 drops <- c("caseID","target")
 idx <- which(!(names(data) %in% drops))
 
@@ -100,100 +102,44 @@ result <- cor.test(xtfrm(df[, i]), xtfrm(df[, target]), alternative="two.sided",
 return(result)
 }
 
-# todo add gini and other quality measures
+# somers Dxy
+mySomersDxy <- function(i=1, target="target",df=data) {
+  # TODO recode categoricals properly
+  # TODO get C area under curve
+  # result is a vector not a dataframe so use [""] to access attributes
+  Dxy <- somers2(as.numeric(df[, i]), as.numeric(df[, target])-1)["Dxy"]
+  C <- somers2(as.numeric(df[, i]), as.numeric(df[, target])-1)["C"]
+  return(Dxy)
+}
+
+# todo add gini and other quality measures somers Dxy
 
 # list of correlations of variables to target
 correlation.Tau <- lapply(idx,myCorMeasures,df=s_data)
-
-# # begin parrallel stuf
-# library(parallel)
-# 
-# # set up the cluster
-# size_of_pool = 4 
-# cl <- makeCluster(size_of_pool)
-# # do things in parrallel
-# correlation.Tau <- parLapply(inds,myCorMeasures)
-# 
-# stopCluster(cl)
-# # end parrallel stuff
+correlation.Dxy <- lapply(idx,mySomersDxy,df=s_data)
 
 # make a numeric vector
-nct <- as.numeric(correlation.Tau)
+nTau <- as.numeric(correlation.Tau)
+nDxy <- as.numeric(correlation.Dxy)
+
 #  wrld_data[order(wrld_data$NAME),]
 # dd[with(dd, order(-z, b)), ]
 library(xtable)
 name <- names(data[,idx])
-t <- data.frame(name,nct)
+t <- data.frame(name,nTau,nDxy)
 # sort correlation ascending 
-t_sorted <- t[with(t, order(nct)), ]
+t_sorted <- t[with(t, order(nTau)), ]
 
 xt <- xtable(t_sorted)
 digits(xt) <- c(0,2,4)
-names(xt) <- c('variable','Kendall Tau correlation')
+names(xt) <- c('variable','Kendalls Tau','Somers Dxy')
 print(xt, type='html')
 
 ## @knitr run-recode
 out = NULL
 for (i in c(1:num_vars)) {
-  out = c(out, knit_child('da-numeric-template.Rnw', sprintf('da-numeric-template-%d.txt', i)))
+  out = c(out, knit_child('dp-recode.Rmd'))
 }
 
-## @knitr cat-overview
-library(reporttools)
-cat_dat <- data[sapply(data, is.factor)]
-# check number of levels per factor
-cat_levels <-  sapply(cat_dat,nlevels)
-max_levels <- 25
-cat_dat_max <- cat_dat[,cat_levels < max_levels]
-# keep only those with limited number of factors
-cat_max_var_names <- names(cat_dat_max)
-cat_max_vars <- length(cat_max_var_names)
-
-## @knitr run-categoric
-out = NULL
-for (i in c(1:cat_max_vars)) {
-  out = c(out, knit_child('da-categorical-template.Rnw', sprintf('da-categorical-template-%d.txt', i)))
-}
-
-# summarize non numeric variables with less then max_levels levels
-tableNominal(cat_dat_max)
-
-## @knitr run-never
-for (i in c(1:num_vars)){
-  print(num_var_names[i])
-}
-
-# test varclus
-
-s <- ' ~ jaarbedr + minbegjr + proj + nudona + r20102009mndbedrag + r20112010mndbedrag + X2009avgbedragmnd + X2010avgbedragmnd'
-v <- varclus(~ jaarbedr + minbegjr + proj + bronaktie + r20102009mndbedrag + r20112010mndbedrag + X2009avgbedragmnd + X2010avgbedragmnd, data = s_data)
-
-
-# get the attribute estimate from the list of cor.test
-sapply(cors, `[[`, "estimate")
-
-# outlier test
-library(outliers)
-target <- "AantalMaandenWerkzaamVrouw"
-target <- "Postcode4"
-target <- "InkomenMaand"
-
-x <- data[[target]]
-outlier_tf = outlier(x,logical=TRUE)
-#This gives an array with all values False, except for the outlier (as defined in the package documentation "Finds value with largest difference between it and sample mean, which can be an outlier").  That value is returned as True.
-find_outlier = which(outlier_tf==TRUE,arr.ind=TRUE)
-#This finds the location of the outlier by finding that "True" value within the "outlier_tf" array.
-data_new = data[-find_outlier,]
-#This creates a new dataset based on the old data, removing the one row that contains the outlier 
-
-# extremevalues
-library(extremevalues)
-getOutliers(x, method="I",distribution="lognormal")
-
-# kendaul correlation
-cor(data$leeftijd2011,data$nudona, method="kendall")
-cor(xtfrm(data$Bronbinnen),data$nudona, method="kendall")
-
-xtfrm(data$catHHINKOMEN)
-
+## @knitr recode
 

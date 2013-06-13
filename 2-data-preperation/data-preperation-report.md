@@ -49,7 +49,7 @@ The target variable is defined in the previous step.
 The target has the following proportion of outcomes:
 
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
-<!-- Tue Jun  4 22:41:25 2013 -->
+<!-- Thu Jun 13 13:30:54 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> count </TH> <TH> % </TH>  </TR>
   <TR> <TD align="right"> 0 </TD> <TD align="right"> 176 </TD> <TD align="right"> 3.52 </TD> </TR>
@@ -73,14 +73,60 @@ This dataset has 0 missing cases out of 5000, which is 0 percent.
 
 Behaviour analysis
 ------------------------------
-The selected inputs have the following raw predictive capacity:
+The selected inputs have the following raw predictive capacity for predicting the target outcome:
+
+
+```
+## Loading required package: survival
+```
+
+```
+## Loading required package: splines
+```
+
+```
+## Hmisc library by Frank E Harrell Jr
+## 
+## Type library(help='Hmisc'), ?Overview, or ?Hmisc.Overview') to see overall
+## documentation.
+## 
+## NOTE:Hmisc no longer redefines [.factor to drop unused levels when
+## subsetting.  To get the old behavior of Hmisc type dropUnusedLevels().
+```
+
+```
+## Attaching package: 'Hmisc'
+```
+
+```
+## The following object(s) are masked from 'package:survival':
+## 
+## untangle.specials
+```
+
+```
+## The following object(s) are masked from 'package:xtable':
+## 
+## label, label<-
+```
+
+```
+## The following object(s) are masked from 'package:base':
+## 
+## format.pval, round.POSIXt, trunc.POSIXt, units
+```
+
+```
+## Error: if argument 'digits' is a vector of length more than one, it must
+## have length equal to 4 ( ncol(x) + 1 )
+```
 
 <!-- html table generated in R 2.14.1 by xtable 1.7-1 package -->
-<!-- Tue Jun  4 22:41:25 2013 -->
+<!-- Thu Jun 13 13:30:55 2013 -->
 <TABLE border=1>
-<TR> <TH>  </TH> <TH> variable </TH> <TH> Kendall Tau correlation </TH>  </TR>
-  <TR> <TD align="right"> 1 </TD> <TD> age </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> 2 </TD> <TD> income </TD> <TD align="right">  </TD> </TR>
-  <TR> <TD align="right"> 3 </TD> <TD> gender </TD> <TD align="right">  </TD> </TR>
+<TR> <TH>  </TH> <TH> variable </TH> <TH> Kendalls Tau </TH> <TH> Somers Dxy </TH>  </TR>
+  <TR> <TD align="right"> 3 </TD> <TD> gender </TD> <TD align="right"> -0.05 </TD> <TD align="right"> -0.13 </TD> </TR>
+  <TR> <TD align="right"> 2 </TD> <TD> income </TD> <TD align="right"> 0.03 </TD> <TD align="right"> 0.11 </TD> </TR>
+  <TR> <TD align="right"> 1 </TD> <TD> age </TD> <TD align="right"> 0.08 </TD> <TD align="right"> 0.30 </TD> </TR>
    </TABLE>
 
