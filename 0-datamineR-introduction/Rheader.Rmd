@@ -1,0 +1,18 @@
+```{r set_knitr_chunk_options}
+opts_chunk$set(echo=FALSE,message=FALSE,results = "asis") # important for making sure the output will be well formatted.
+```
+
+```{r load_pander_methods}
+require(pander)
+replace.print.methods <- function(PKG_name = "pander") {
+  PKG_methods <- as.character(methods(PKG_name))
+  print_methods <- gsub(PKG_name, "print", PKG_methods)
+  for(i in seq_along(PKG_methods)) {
+    f <- eval(parse(text=paste(PKG_name,":::", PKG_methods[i], sep = ""))) # the new function to use for print
+    assign(print_methods[i], f, ".GlobalEnv")
+  }   
+}
+replace.print.methods()
+## The following might work with some tweaks:
+## print <- function (x, ...) UseMethod("pander")
+```

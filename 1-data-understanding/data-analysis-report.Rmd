@@ -1,7 +1,15 @@
+% Data Analysis Report
+% dataMineR
+% 4/6/2013
+
+
 Data Analysis Report
 ========================================================
 
-Todo : add table of content
+This is the first attempt to transform the `Rmd` source for dataMineR into a pdf file. Some things are not yet as they should be: html tables are obviously not converted properly.
+
+Other things work out of the box: syntax highlighting (although not yet accurate) and TOC generation.
+
 
 Introduction
 ------------------------
@@ -17,6 +25,7 @@ Basic information from the dataset we are using.
 ```{r setup, echo=FALSE, cache=FALSE}
 # set global chunk options APPERENTLY CANNOT BE EXTERNALIZED
 opts_chunk$set(echo=TRUE, cache=FALSE, tidy=TRUE, error=TRUE)
+library(pander)
 # read externalized R from R script
 read_chunk("data-analysis.R")
 ```
@@ -73,37 +82,3 @@ for (i in c(1:num_vars)) {
 `r paste(out, collapse = '\n')`
 
 
-Categorical variables
-======================================
-Here we analyse all categorical variables. We first check the number of different levels in each category(or factor). Then we do a bar plot to show the distribution for each variable.  
-
-Overview
---------------------------------------
-In the following table we will see each variable printed with it's unique levels. Beside each level a count is made and a precentage calculated. In the last colum we find a culumative count summing the total up to 100\%. 
-
-```{r cat-overview, results='tex'}
-
-```
-
-We see that the number of levels can be quite big, for reporting we will omit all variables with more then  `r max_levels` levels. These will not be reported in the subsections below.
-```{r cat-levels-md, results='asis'}
-
-```
-
-Variables with to many levels to report are : `r c_var_names.not_reported` .  
-
-```{r run-categoric-md, include=FALSE}
-
-```
-
-`r paste(out, collapse = '\n')`
-
-Behavioural Analysis
-----------------------------
-The next step is behavioural analysis.
-The current dataset is now saved.
-```{r save-data}
-
-```
-
-Dataset saved as : `r datasetName`
