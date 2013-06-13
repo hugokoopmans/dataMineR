@@ -31,7 +31,7 @@ if( ! (length(unique(data$caseID)) == length(data$caseID)) ){
 
 # exclude original case_id and variables with lot of missing
 #exclude_var_names <- c('caseID','registrnr','X2011tmoktstornaant','X2010stornoaantal')
-exclude_var_names <- c('caseID','p_y','p_real')
+exclude_var_names <- c('p_y','p_real','yś')
 data <- data[,!names(data) %in% exclude_var_names]
 
 ## @knitr var_types
@@ -52,11 +52,6 @@ num_var_names <- names(data[sapply(data, is.numeric)])
 num_vars <- length(num_var_names)
 cat_var_names <- names(data[sapply(data, is.factor)])
 cat_vars <- length(cat_var_names)
-
-## @knitr num-overview-lx
-library(reporttools)
-# summarize numeric variables
-tableContinuous(data[,sapply(data, is.numeric)],stats = c("n", "min", "q1", "median", "mean", "q3", "max", "na"))
 
 ## @knitr num-overview-md
 library(pander)
@@ -85,12 +80,6 @@ panderOptions('table.split.table', 80)
 out = NULL
 for (i in c(1:num_vars)) {
   out = c(out, knit_child('da-numeric.Rmd'))
-}
-
-## @knitr run-all-md
-out = NULL
-for (i in 1:3) {
-  out = c(out, knit_child('020-for-template.Rmd'))
 }
 
 ## @knitr cat-overview

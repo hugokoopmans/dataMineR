@@ -59,6 +59,7 @@ data <- data.frame(age,income,gender,p_real,p_y,y)
 rowID <- as.numeric(row.names(data))
 
 data$caseID <- rowID
+data$target <- y
 
 # export to flat file
 write.table(data, file="./data/data-simple-example.tab",sep="\t",row.names = FALSE)
