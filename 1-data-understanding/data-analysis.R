@@ -12,7 +12,7 @@ i=1
 
 # data location full path to filename from working directory(=project dir)
 # This works by default from the relative path
-path2file <- "../data/data-analysis.tab"
+path2file <- "../data/data-simple-example.tab"
 
 # read dataframe from tab delimets file
 data <- read.delim(path2file,sep = "\t",strip.white = TRUE)
