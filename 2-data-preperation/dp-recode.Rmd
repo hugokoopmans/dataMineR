@@ -1,19 +1,9 @@
-Binning and recode `r var_names[i]`
+Optimal binning for variable `r var_names[i]`
 -----------------------
 
 Here we wil look for optimal binnning of each variable and scale the variable to uniform scale.
 
-```{r}
-read_chunk("data-preperation.R")
-```
-
-```{r recode}
-
-```
-
-You can also embed plots, for example:
-
-```{r fig.width=7, fig.height=6}
-plot(cars)
+```{r }
+print('test')
 ```
 

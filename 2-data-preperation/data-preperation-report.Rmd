@@ -80,7 +80,12 @@ The selected inputs have the following raw predictive capacity for predicting th
 
 ```
 
-Recode
-------------------------------
+Optimal binning and recode
+================================
 Now we look at individual variables and calculate optimal binning for each.
+```{r run-recode}
+
+```
+
+`r paste(out, collapse = '\n')`
 

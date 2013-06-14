@@ -1,6 +1,10 @@
 # data analysis template
 # we define knitr chunks here which  can be picked up by Rnw or Rmd files for document generation
 
+# knitr uses Rmd fil location as working directory
+# if we run script from Rstudio we need to put the right working dir
+setwd("~/r-studio/dataMineR/1-data-understanding")
+
 library(knitr)
 
 ## @knitr setup

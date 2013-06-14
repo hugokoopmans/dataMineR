@@ -3,9 +3,13 @@
 library(DMwR)
 #install.packages('discretization')
 library(discretization)
-library(plyr)
-library(foreach)
+#library(plyr)
+#library(foreach)
 library(rms)
+
+# knitr uses Rmd fil location as working directory
+# if we run script from Rstudio we need to put the right working dir
+setwd("~/r-studio/dataMineR/2-data-preperation")
 
 # source newer version of this function
 #source('knnImputation.R')
@@ -39,6 +43,7 @@ colums <- ncol(data)
 
 #datasetstructure <- str(data)
 var_names <- names(data)
+n_vars <- length(var_names)
 num_var_names <- names(data[sapply(data, is.numeric)])
 num_vars <- length(num_var_names)
 cat_var_names <- names(data[sapply(data, is.factor)])
@@ -131,15 +136,29 @@ t <- data.frame(name,nTau,nDxy)
 t_sorted <- t[with(t, order(nTau)), ]
 
 xt <- xtable(t_sorted)
-digits(xt) <- c(0,2,4)
+#digits(xt) <- c(0,2,4)
 names(xt) <- c('variable','Kendalls Tau','Somers Dxy')
 print(xt, type='html')
 
 ## @knitr run-recode
 out = NULL
-for (i in c(1:num_vars)) {
+for (i in c(1:n_vars)) {
   out = c(out, knit_child('dp-recode.Rmd'))
 }
 
-## @knitr recode
+# test recoding and binning
+#load tree package
+library(rpart)
+fit1<-rpart(target~gender,data=data,parms=list(prior=c(.95,.05)),cp=.00001,method="class")
+par(mfrow = c(1,2), xpd = NA)
+plot(fit1);text(fit1,cex=0.5);
+#printcp(fit1)
+plotcp(fit1)
+
+library(randomForest)
+
+arf<-randomForest(target~age,data=data,importance=TRUE,proximity=TRUE,ntree=50, keep.forest=TRUE)
+#plot variable importance
+varImpPlot(arf)
+
 
