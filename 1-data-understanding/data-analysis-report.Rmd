@@ -1,5 +1,6 @@
 % Data Analysis Report
 % dataMineR
+<<<<<<< HEAD
 % 4/6/2013
 
 
@@ -10,17 +11,21 @@ This is the first attempt to transform the `Rmd` source for dataMineR into a pdf
 
 Other things work out of the box: syntax highlighting (although not yet accurate) and TOC generation.
 
+=======
+% 14/6/2013
+
+>>>>>>> 480f5b2... Update of 1- for pdf creation
 
 Introduction
-------------------------
+============
+
 This data analysis report is generated using R-studio and knitr to knit R code and markdown into html format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.
 The data analysis step is the first step an a datamining analysis.
 
 Dataset Basic Artifacts 
-------------------------------------
-Basic information from the dataset we are using.
+-----------------------
 
-### Basic dataset information
+Basic information from the dataset we are using.
 
 ```{r setup, echo=FALSE, cache=FALSE}
 # set global chunk options APPERENTLY CANNOT BE EXTERNALIZED
@@ -30,28 +35,29 @@ library(pander)
 read_chunk("data-analysis.R")
 ```
 
-
 ```{r read_data, echo=TRUE}
 
 ```
-We are using data from file : `r path2file`
-The dataset has `r colums` variables and `r rows` rows.  
+We are using data from file: ``r path2file`. The dataset has `r colums` variables and `r rows` rows. 
 
 The case identifyer is *`r original_case_id`* this is unique for all cases.
 
+
 Variabele types
------------------------------
+---------------
+
 ```{r var_types}
 
 ```
-The following variabeles are present in the dataset:
-`r var_names` 
+
+The following variabeles are present in the dataset: `r var_names` 
 
 We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
 
 
 Excluded variables
-------------------------------
+------------------
+
 From the varables provided the folowing list will be excluded in this anlysis: `r exclude_var_names`
 
 Sometimes categoric variables are present as coded numbers. These should be treated as factors.
@@ -59,13 +65,16 @@ In this dataset the following variables will be used as factors(categoric): `r t
 
 We have `r num_vars` numeric variables and `r cat_vars` categorical variables (or factors in R).
 
+
 Numeric variables
-=============================
+=================
+
 Here we analyse all numeric variables. We start with an overview on basic statistics per variable. We check for missing values. We do a histogram plot to show the distribution for this variable. And we test for outliers.
 
 
 Overview
------------------------------
+--------
+
 In the table below we report the number of observations (n), the smallest observation (min),  the first quantile (q1), the media ,  the mean, last quantile, the largest observation (max), and the nber of missing values (na).
 
 ```{r num-overview-md, results='asis'}
@@ -81,12 +90,51 @@ for (i in c(1:num_vars)) {
 `r paste(out, collapse = '\n')`
 
 
+<<<<<<< HEAD
 ```{r run-categorical-md, include=FALSE}
 out = NULL
 for (i in c(1:num_vars)) {
   out = c(out, knit_child('da-categorical.Rmd'))
 }
+=======
+Categorical variables
+=====================
+
+Here we analyse all categorical variables. We first check the number of different levels in each category(or factor). Then we do a bar plot to show the distribution for each variable.  
+
+Overview
+--------
+
+In the following table we will see each variable printed with it's unique levels. Beside each level a count is made and a precentage calculated. In the last colum we find a culumative count summing the total up to 100\%. 
+
+```{r cat-overview, results='tex'}
+
+```
+
+We see that the number of levels can be quite big, for reporting we will omit all variables with more then  `r max_levels` levels. These will not be reported in the subsections below.
+```{r cat-levels-md, results='asis'}
+
+```
+
+Variables with to many levels to report are : `r c_var_names.not_reported` .  
+
+```{r run-categoric-md, include=FALSE}
+
+>>>>>>> 480f5b2... Update of 1- for pdf creation
 ```
 `r paste(out, collapse = '\n')`
 
+<<<<<<< HEAD
 
+=======
+Behavioural Analysis
+----------------------------
+
+The next step is behavioural analysis.
+The current dataset is now saved.
+```{r save-data}
+
+```
+
+Dataset saved as: ``r datasetName``
+>>>>>>> 480f5b2... Update of 1- for pdf creation

@@ -17,5 +17,5 @@ spdf: $(FILE).md
 tex: $(FILE).md 
 	pandoc $(FILE).md -o $(FILE).tex --template $(PDFTEMPLATE) -o $(FILE).tex
 
-pdf: $(FILE).md
+pdf: $(FILE).md $(FILE).Rmd
 	pandoc $(FILE).md -o $(FILE).pdf --template $(PDFTEMPLATE) --listings $(OPT_PDF)

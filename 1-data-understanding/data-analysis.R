@@ -31,7 +31,11 @@ if( ! (length(unique(data$caseID)) == length(data$caseID)) ){
 
 # exclude original case_id and variables with lot of missing
 #exclude_var_names <- c('caseID','registrnr','X2011tmoktstornaant','X2010stornoaantal')
+<<<<<<< HEAD
 exclude_var_names <- c('caseID','p_y','p_real')
+=======
+exclude_var_names <- c('p_y','p_real','y')
+>>>>>>> 480f5b2... Update of 1- for pdf creation
 data <- data[,!names(data) %in% exclude_var_names]
 
 ## @knitr var_types
@@ -111,6 +115,12 @@ num_cat_vars_lim <- length(cat_var_names_lim)
 ## @knitr cat-levels
 library(reporttools)
 
+<<<<<<< HEAD
+=======
+## @knitr cat-levels-md
+library(xtable)
+library(pander)
+>>>>>>> 480f5b2... Update of 1- for pdf creation
 # report missing values
 cat_num_missing <- colSums(is.na(cat_dat))
 t <- data.frame(cat_levels,cat_num_missing)
@@ -118,10 +128,19 @@ t <- data.frame(cat_levels,cat_num_missing)
 #t_sorted <- t[with(t, order(nct)), ]
 xt <- xtable(t)
 digits(xt) <- c(0,0,0)
+<<<<<<< HEAD
 names(xt) <- c('levels','# missings')
 print(xt)
 
 ## @knitr run-categorical-md
+=======
+names(xt) <- c('levels','missings')
+
+#print(xtable(xt),type='html')
+pander(xt)
+
+## @knitr run-categoric-md
+>>>>>>> 480f5b2... Update of 1- for pdf creation
 out = NULL
 for (i in c(1:cat_vars)) {
   out = c(out, knit_child('da-categorical.Rmd'))
