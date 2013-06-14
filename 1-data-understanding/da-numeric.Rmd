@@ -1,21 +1,28 @@
 Variabele `r num_var_names[i]`
 ------------------------------------
 
-Missing :  `r sum(is.na(data[[num_var_names[i]]]))`  
-Minimum value : `r min(na.omit(data[[num_var_names[i]]]))`  
-Percentile 1 : `r quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2]`  
-Percentile 99 : `r quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]`  
-Maximum value : `r max(na.omit(data[[num_var_names[i]]]))`  
+Missing:  `r sum(is.na(data[[num_var_names[i]]]))`  
+Minimum value: `r min(na.omit(data[[num_var_names[i]]]))`  
+Percentile 1: `r quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2]`  
+Percentile 99: `r quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]`  
+Maximum value: `r max(na.omit(data[[num_var_names[i]]]))`  
 
-```{r results='asis', comment="" }
+```{r results='asis', comment=""}
+library(pander)
+pander(summary(data[[num_var_names[i]]]))
+```
+
+
+```{r results='asis', comment=""}
 warn_extreme_values=3
 d1 = quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2] > warn_extreme_values*quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[1]
 d99 = quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[101] > warn_extreme_values*quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]
 if(d1){cat('Warning : Suspect extreme values in left tail')}
 if(d99){cat('Warning : Suspect extreme values in right tail')}
+caption <- paste("Histogram for variable ",num_var_names[i])
 ```
 
-``` {r eval=TRUE,  fig.width=6, fig.height=2}
+``` {r eval=TRUE,  fig.width=6, fig.height=2, fig.cap=caption}
 library(ggplot2)
 
 v <- num_var_names[i]

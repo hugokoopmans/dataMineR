@@ -1,11 +1,18 @@
-Variabele `r c_var_names[i]`
+Variabele `r cat_var_names[i]`
 ----------------------------------------
 The table shows the number of observations of each level.
 
 ``` {r results='asis'}
 library(xtable)
-xt <- xtable(table(c_data[c_var_names[i]]), caption = c_var_names[i])
+xt <- xtable(table(cat_data[cat_var_names[i]]), caption = cat_var_names[i])
+library(pander)
 names(xt) <- c('count')
-print(xtable(xt),type='html')
-
+#print(xtable(xt),type='html')
+pander(xtable(xt))
 ```
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 570200d265495dc6da3a654d3ae4b5f44385e283

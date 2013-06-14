@@ -35,7 +35,11 @@ if( ! (length(unique(data$caseID)) == length(data$caseID)) ){
 
 # exclude original case_id and variables with lot of missing
 #exclude_var_names <- c('caseID','registrnr','X2011tmoktstornaant','X2010stornoaantal')
+<<<<<<< HEAD
 exclude_var_names <- c('p_y','p_real','yś')
+=======
+exclude_var_names <- c('p_y','p_real','y')
+>>>>>>> 570200d265495dc6da3a654d3ae4b5f44385e283
 data <- data[,!names(data) %in% exclude_var_names]
 
 ## @knitr var_types
@@ -106,6 +110,10 @@ num_c_vars_lim <- length(c_var_names)
 
 ## @knitr cat-levels-md
 library(xtable)
+<<<<<<< HEAD
+=======
+library(pander)
+>>>>>>> 570200d265495dc6da3a654d3ae4b5f44385e283
 # report missing values
 c_num_missing <- colSums(is.na(c_data))
 t <- data.frame(c_levels,c_num_missing)
@@ -113,6 +121,7 @@ t <- data.frame(c_levels,c_num_missing)
 #t_sorted <- t[with(t, order(nct)), ]
 xt <- xtable(t)
 digits(xt) <- c(0,0,0)
+<<<<<<< HEAD
 names(xt) <- c('levels','# missings')
 
 print(xtable(xt),type='html')
@@ -127,3 +136,19 @@ for (i in c(1:num_c_vars_lim)) {
 datasetName = "../data/data-analysis.tab"
 write.table(data,file = datasetName, sep = "\t", row.names=FALSE, quote = FALSE)
 
+=======
+
+## @knitr run-categorical-md
+names(xt) <- c('levels','missings')
+#print(xtable(xt),type='html')
+pander(xt)
+
+## @knitr run-categoric-md
+out = NULL
+for (i in c(1:cat_vars)) {
+  out = c(out, knit_child('da-categorical.Rmd'))
+}
+
+
+
+>>>>>>> 570200d265495dc6da3a654d3ae4b5f44385e283
