@@ -1,20 +1,6 @@
 % Data Analysis Report
 % dataMineR
-<<<<<<< HEAD
-% 4/6/2013
-
-
-Data Analysis Report
-========================================================
-
-This is the first attempt to transform the `Rmd` source for dataMineR into a pdf file. Some things are not yet as they should be: html tables are obviously not converted properly.
-
-Other things work out of the box: syntax highlighting (although not yet accurate) and TOC generation.
-
-=======
 % 14/6/2013
-
->>>>>>> 480f5b2... Update of 1- for pdf creation
 
 Introduction
 ============
@@ -90,13 +76,6 @@ for (i in c(1:num_vars)) {
 `r paste(out, collapse = '\n')`
 
 
-<<<<<<< HEAD
-```{r run-categorical-md, include=FALSE}
-out = NULL
-for (i in c(1:num_vars)) {
-  out = c(out, knit_child('da-categorical.Rmd'))
-}
-=======
 Categorical variables
 =====================
 
@@ -120,13 +99,9 @@ Variables with to many levels to report are : `r c_var_names.not_reported` .
 
 ```{r run-categoric-md, include=FALSE}
 
->>>>>>> 480f5b2... Update of 1- for pdf creation
 ```
 `r paste(out, collapse = '\n')`
 
-<<<<<<< HEAD
-
-=======
 Behavioural Analysis
 ----------------------------
 
@@ -137,4 +112,3 @@ The current dataset is now saved.
 ```
 
 Dataset saved as: ``r datasetName``
->>>>>>> 480f5b2... Update of 1- for pdf creation
