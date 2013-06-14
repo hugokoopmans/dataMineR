@@ -78,7 +78,15 @@ for (i in c(1:num_vars)) {
   out = c(out, knit_child('da-numeric.Rmd'))
 }
 ```
+`r paste(out, collapse = '\n')`
 
+
+```{r run-categorical-md, include=FALSE}
+out = NULL
+for (i in c(1:num_vars)) {
+  out = c(out, knit_child('da-categorical.Rmd'))
+}
+```
 `r paste(out, collapse = '\n')`
 
 

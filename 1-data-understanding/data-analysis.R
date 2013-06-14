@@ -81,12 +81,6 @@ panderOptions('table.split.table', 80)
 
 ## run numeric template for each numeric variable seperately
 
-## @knitr run-numeric-lx
-out = NULL
-for (i in c(1:num_vars)) {
-  out = c(out, knit_child('1-data-understanding/CopyOfda-numeric-template.Rnw', sprintf('1-data-understanding/CopyOfda-numeric-template-%d.txt', i)))
-}
-
 ## @knitr run-numeric-md
 out = NULL
 for (i in c(1:num_vars)) {
@@ -127,11 +121,13 @@ digits(xt) <- c(0,0,0)
 names(xt) <- c('levels','# missings')
 print(xt)
 
-## @knitr run-categoric
+## @knitr run-categorical-md
 out = NULL
-for (i in c(1:num_cat_vars_lim)) {
-  out = c(out, knit_child('1-data-understaning/CopyOfda-categorical-template.Rnw', sprintf('1-data-understanding/CopyOfda-categorical-template-%d.txt', i)))
+for (i in c(1:cat_vars)) {
+  out = c(out, knit_child('da-categorical.Rmd'))
 }
+
+
 
 # summarize non numeric variables with less then max_levels levels
 tableNominal(cat_dat_max)
