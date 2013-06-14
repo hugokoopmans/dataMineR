@@ -146,14 +146,22 @@ for (i in c(1:n_vars)) {
   out = c(out, knit_child('dp-recode.Rmd'))
 }
 
+## @knitr never
+
 # test recoding and binning
 #load tree package
 library(rpart)
-fit1<-rpart(target~gender,data=data,parms=list(prior=c(.95,.05)),cp=.00001,method="class")
-par(mfrow = c(1,2), xpd = NA)
+fit1<-rpart(outcome~income,data=data,parms=list(prior=c(.95,.05)),cp=.001,method="class",x = TRUE,y = TRUE)
+par(mfrow = c(1,1), xpd = NA)
 plot(fit1);text(fit1,cex=0.5);
-#printcp(fit1)
+printcp(fit1)
 plotcp(fit1)
+
+fit1$cptable[which.min(fit1$cptable[,"xerror"]),"CP"]
+
+# prune the tree 
+pfit1 <- prune(fit1, cp = fit1$cptable[which.min(fit1$cptable[,"xerror"]),"CP"])
+pfit1
 
 library(randomForest)
 
@@ -161,4 +169,17 @@ arf<-randomForest(target~age,data=data,importance=TRUE,proximity=TRUE,ntree=50, 
 #plot variable importance
 varImpPlot(arf)
 
+#conditional inference trees corrects for known biases in chaid and cart
+library(party)
+data$outcome <- as.factor(data$target)
+data$target <- NULL
+cfit2 <- ctree(outcome~age+income+gender,data=data, control = ctree_control( mincriterion = 0.6))
+plot(cfit2);
+table(predict(cfit1), data$taget)
 
+irisct <- ctree(Species ~ .,data = iris)
+irisct
+plot(irisct)
+table(predict(irisct), iris$Species)
+
+hist(data$age, breaks = 5)
