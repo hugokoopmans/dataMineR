@@ -6,7 +6,7 @@ OPT_PDF=--variable numbersections --toc --variable toc-depth=2 --variable docume
 # options cut: 
 
 md: $(FILE).Rmd
-	./k $(FILE).Rmd
+	../bin/k $(FILE).Rmd
 
 html:$(FILE).md
 	pandoc $(FILE).md -s -c ../templates/html/pandoc.css --highlight-style pygments --mathjax -o $(FILE).html
