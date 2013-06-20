@@ -3,7 +3,7 @@
 
 # knitr uses Rmd fil location as working directory
 # if we run script from Rstudio we need to put the right working dir
-setwd("~/r-studio/dataMineR/1-data-understanding")
+# setwd("~/r-studio/dataMineR/1-data-understanding")
 
 library(knitr)
 
@@ -116,7 +116,7 @@ t <- data.frame(c_levels,c_num_missing)
 xt <- xtable(t)
 digits(xt) <- c(0,0,0)
 
-names(xt) <- c('levels','# missings')
+names(xt) <- c('levels','missings')
 pander(xt)
 
 ## @knitr run-categoric-md
