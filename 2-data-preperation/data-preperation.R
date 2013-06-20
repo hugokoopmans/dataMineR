@@ -9,7 +9,8 @@ library(rms)
 
 # knitr uses Rmd fil location as working directory
 # if we run script from Rstudio we need to put the right working dir
-setwd("~/r-studio/dataMineR/2-data-preperation")
+#setwd("~/r-studio/dataMineR/2-data-preperation")
+setwd("~/Git/dataMineR/2-data-preperation")
 
 # source newer version of this function
 #source('knnImputation.R')
@@ -63,12 +64,13 @@ if (is.numeric(data[[target_name]])){
   }
 
 # display counts and percentage on target
-library(xtable)
+library(pander)
 t <- cbind(table(data$target),100*prop.table(table(data$target)))
-xt <- xtable(t)
-digits(xt) <- c(0,0,2)
-names(xt) <- c('count','%')
-print(xt,type='html')
+t <- as.data.frame(t)
+# xt <- xtable(t)
+# digits(xt) <- c(0,0,2)
+names(t) <- c('count','%')
+pander(t)
 
 ## @knitr missing_def
 
@@ -129,16 +131,15 @@ nDxy <- as.numeric(correlation.Dxy)
 
 #  wrld_data[order(wrld_data$NAME),]
 # dd[with(dd, order(-z, b)), ]
-library(xtable)
 name <- names(data[,idx])
 t <- data.frame(name,nTau,nDxy)
 # sort correlation ascending 
 t_sorted <- t[with(t, order(nTau)), ]
 
-xt <- xtable(t_sorted)
 #digits(xt) <- c(0,2,4)
-names(xt) <- c('variable','Kendalls Tau','Somers Dxy')
-print(xt, type='html')
+names(t_sorted) <- c('variable','Kendalls Tau','Somers Dxy')
+library(pander)
+pander(t_sorted)
 
 ## @knitr run-recode
 out = NULL
