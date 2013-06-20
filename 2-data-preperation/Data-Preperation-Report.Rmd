@@ -1,12 +1,16 @@
-Behaviour Analysis Report
-========================================================
+% Behaviour Analysis Report
+% dataMineR
+% 19/6/2013
 
 
 Introduction
-------------------------
-This analysis report is generated using R, R-studio and knitr to knitr R code from markdown into html and later LateX format. We have the option to include all R code that is used to generate the plots and calculations. Default this feauture is dissabled.
+============
+
+This analysis report is generated using R, R-studio and knitr to knitr R code from markdown into html and later LateX format. We have the option to include all R code that is used to generate the plots and calculations. By default this feauture is dissabled.
+
 The behaviour analysis step is the second step in a datamining analysis.
 Steps identified in the datamining process are: 
+
 * Data analysis 
 * Behaviour analysis 
 * Missing value analysis 
@@ -60,6 +64,7 @@ The target has the following proportion of outcomes:
 
 Missing values
 -------------------------
+
 Before we can do model analysis we need to take care of missing values. The simplest appraoch is to delete cases including one or more missing entries but this can remove a large proportion of valuable data.
 We can also remove individual variables if they have a high percentage of missing atributes.
 Or we can replace or impute missing data with for instance an average or most frequent value. Actually changing the data. For this we can use kNN nearest neighbors. 
@@ -73,7 +78,8 @@ This dataset has `r nrow(data)-nrow(data[complete.cases(data),])` missing cases 
 ```
 
 Behaviour analysis
-------------------------------
+==================
+
 The selected inputs have the following raw predictive capacity for predicting the target outcome:
 
 ```{r raw_pred_cap, results='asis'}
@@ -81,7 +87,7 @@ The selected inputs have the following raw predictive capacity for predicting th
 ```
 
 Optimal binning and recode
-================================
+==========================
 Now we look at individual variables and calculate optimal binning for each.
 ```{r run-recode}
 
