@@ -9,8 +9,8 @@ library(rms)
 
 # knitr uses Rmd fil location as working directory
 # if we run script from Rstudio we need to put the right working dir
-#setwd("~/r-studio/dataMineR/2-data-preperation")
-setwd("~/Git/dataMineR/2-data-preperation")
+setwd("~/r-studio/dataMineR/2-data-preperation")
+#setwd("~/Git/dataMineR/2-data-preperation")
 
 # source newer version of this function
 #source('knnImputation.R')
@@ -142,10 +142,38 @@ library(pander)
 pander(t_sorted)
 
 ## @knitr run-recode
+
+#transform target back to probablity
+data$p_target <- as.numeric(data$target)-1
+
 out = NULL
 for (i in c(1:n_vars)) {
   out = c(out, knit_child('dp-recode.Rmd'))
 }
+
+## @knitr cluster
+
+num_var_names <- names(data[sapply(data, is.numeric)])
+
+# Hierarchical Variable Correlation 
+# Generate the correlations (numerics only).
+# todo skip caseID and Target
+cc <- cor(data[,num_var_names], use="pairwise", method="pearson")
+
+# Generate hierarchical cluster of variables.
+hc <- hclust(dist(cc), method="average")
+
+# Generate the dendrogram.
+dn <- as.dendrogram(hc)
+
+# Now draw the dendrogram.
+op <- par(mar = c(3, 4, 3, 2.29))
+plot(dn, horiz = TRUE, nodePar = list(col = 3:2, cex = c(2.0, 0.75), pch = 21:22, bg=  c("light blue", "pink"), lab.cex = 0.75, lab.col = "tomato"), edgePar = list(col = "gray", lwd = 2), xlab="Height")
+title(main="Variable Correlation Clusters
+ data using Pearson")
+par(op)
+
+
 
 ## @knitr never
 

@@ -1,9 +1,39 @@
-Optimal binning for variable `r var_names[i]`
+Behaviour for variable `r var_names[i]`
 -----------------------
 
-Here we wil look for optimal binnning of each variable and scale the variable to uniform scale.
+Here we wil look into the relation of variable `r var_names[i]` with the target.
 
 ```{r }
-print('test')
+library(plyr)
+if (is.numeric(data[[var_names[i]]])==TRUE) {
+  print ("numeric")
+} else {
+  library(ggplot2)
+  # calculate statistics for probability of target
+  c_stats <- ddply(data,i,summarise,sum=sum(p_target),mean=mean(p_target),sd=sd(p_target))
+  
+  d1 <- ddply(data,i,summarise,y=sum(p_target))
+  d2 <- ddply(data,i,summarise,y=mean(p_target))
+  
+  d1$panel <- "volume"
+  d2$panel <- "p(target)"
+  
+  # plot the bar chart
+  ggplot(data=d1, aes_string(x=var_names[i], y="y")) + geom_bar(stat = "identity") + geom_point()
+  # plot probability
+  ggplot(data=d2, aes_string(x=var_names[i], y="y")) + geom_point()
+  
+  # combine dataframe
+  d <- rbind(d1, d2)
+  # combine plots
+  p <- ggplot(data = d, mapping = aes_string(x=var_names[i], y="y"))
+  p <- p + facet_grid(panel ~ ., scale = "free")
+  p <- p + layer(data = d1, geom = c( "bar"), stat = "identity")
+  p <- p + layer(data = d2, geom = c( "point"), stat = "identity")
+  p
+  
+}
+  
+
 ```
 

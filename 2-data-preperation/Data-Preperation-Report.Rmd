@@ -81,7 +81,16 @@ This dataset has `r nrow(data)-nrow(data[complete.cases(data),])` missing cases 
 ```
 
 
-Behaviour analysis
+Variable interactions
+----------------------
+
+Hierarchical clustering is a good technique to visualize interactions between numeric variables.
+
+```{r cluster}
+
+```
+
+Behaviour analysis summary
 ==================
 
 The selected inputs have the following raw predictive capacity for predicting the target outcome:
@@ -90,9 +99,10 @@ The selected inputs have the following raw predictive capacity for predicting th
 
 ```
 
-Optimal binning and recode
+Detailed variable behaviour analysis
 ==========================
-Now we look at individual variables and calculate optimal binning for each.
+Now we look at individual variables and analyse it's relation with the target. We visualize numerical variables different then categorical ones.
+
 ```{r run-recode}
 
 ```
