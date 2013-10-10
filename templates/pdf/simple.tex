@@ -1,0 +1,60 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$,openany,oneside,a4paper]{$documentclass$}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage{enumerate}
+
+% Proper A4 geometry:
+\usepackage[hmargin=3.5cm,vmargin=3.5cm,paper=a4paper]{geometry}
+
+% Fonts
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}         % Default
+
+\makefootrule{plain}{\textwidth}{\normalrulethickness}{0ex}
+
+\setsecnumdepth{subsection}
+\settocdepth{subsection}
+
+$if(tables)$
+\usepackage{longtable}
+$endif$
+
+$if(graphics)$
+\usepackage{graphicx}
+% We will generate all images so they have a width .8\maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+$endif$
+
+$if(title)$
+\title{$title$}
+$endif$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+
+\begin{document}
+$if(title)$
+\maketitle
+%\titleDB
+$endif$
+
+\newpage
+
+$if(toc)$
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+}
+$endif$
+
+$body$
+
+\end{document}

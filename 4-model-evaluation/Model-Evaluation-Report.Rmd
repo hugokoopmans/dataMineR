@@ -1,0 +1,120 @@
+% Model Evaluation Report
+% dataMineR
+% 19/6/2013
+
+
+Introduction
+============
+
+This evaluation report is generated using R, R-studio and knitr to knitr R code from markdown into html and later LateX format. We have the option to include all R code that is used to generate the plots and calculations. By default this feauture is dissabled.
+
+The model evaluation step is the forth step in a datamining process.
+Steps identified in the datamining process are: 
+
+* Data analysis 
+* Behaviour analysis 
+* Missing value analysis 
+* Missing value imputation (optional) 
+* Binning 
+* Feature selection 
+* Model development 
+* Model evaluation
+* Model deployment
+
+For the model evaluation process takes models developped in the previouss step and evaluates these models against the test data saved in the test set.
+
+
+Information on Testset 
+------------------------------------
+Basic information from the testset we are using.
+
+```{r eval=TRUE, echo=FALSE}
+# set global chunk options 
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+# read externalized R from R script
+read_chunk("model-evaluation.R")
+
+# source dataMineR functions
+source("../dataminer.R")
+
+# parameters:
+# target name
+target_name <- "churn_201305"
+
+```
+
+
+```{r read_data, cache=FALSE}
+
+```
+We are using data from file : `r datasetname`. The dataset has `r colums` variables and `r rows` rows.
+
+
+Evaluation setup
+==========================
+
+The basic challengence in datamining is that we will develop a predictive model that has predictive capability on onseen data(our test set). There are a lot of learning methods that can leverage a large proportion of the collected data using n-fold cross validation.
+
+If there are enough cases we can use a simple shema that holds back a percentage of cases as a test set. The training set will be used entirely for model development using the above mentioned validation methods. The test set is only used in model evaluation.
+
+For model evaluation there are a lot of criteria available. Here we will focus on ROC and Lift curves to decide which model we will select for deployment.
+
+Models proposed for evaluation
+=========================
+
+In the development process we have develloped a set of models, based on different parameters(like size of trainingset, size of end nodes, number of trees in the forest etc etc).  
+
+More on validation and Out Of Bag error
+
+```{r evaluation-setup}
+
+```
+
+Model store
+-------------------------------------
+We have loaded the model store with `r n_models`. The modelstore is loaded from `r modelstorename`.
+
+Models available for evaluation are `r model_names`
+
+Evaluation
+========================
+
+More on model evaluation
+
+```{r model-evaluation}
+
+```
+
+ROC
+------------------------
+
+ROC curves
+
+```{r roc-curves, eval=TRUE,  fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'ROC curves'}
+
+```
+
+
+Lift
+-----------------------
+
+Lift curves
+
+```{r lift-curves, eval=TRUE,  fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'Lift curves'}
+
+```
+
+Gains chart
+-----------------------
+
+```{r gain-charts, eval=TRUE,  fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'Gains charts'}
+
+```
+
+
+Score Table
+=======================
+
+```{r score-table, results='asis'}
+
+```

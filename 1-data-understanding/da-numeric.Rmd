@@ -1,24 +1,25 @@
 Variabele `r num_var_names[i]`
 ------------------------------------
 
-Missing:  `r sum(is.na(data[[num_var_names[i]]]))`  
-Minimum value: `r min(na.omit(data[[num_var_names[i]]]))`  
-Percentile 1: `r quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2]`  
-Percentile 99: `r quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]`  
-Maximum value: `r max(na.omit(data[[num_var_names[i]]]))`  
+Missing:  `r sum(is.na(data_set[[num_var_names[i]]]))`  
+Minimum value: `r min(na.omit(data_set[[num_var_names[i]]]))`  
+Percentile 1: `r quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2]`  
+Percentile 99: `r quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]`  
+Maximum value: `r max(na.omit(data_set[[num_var_names[i]]]))`  
 
 ```{r results='asis', comment=""}
 library(pander)
-pander(summary(data[[num_var_names[i]]]))
+pander(summary(data_set[[num_var_names[i]]]))
 ```
 
 
 ```{r results='asis', comment=""}
 warn_extreme_values=3
-d1 = quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2] > warn_extreme_values*quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[1]
-d99 = quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[101] > warn_extreme_values*quantile(na.omit(data[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]
+d1 = quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2] > warn_extreme_values*quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[1]
+d99 = quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[101] > warn_extreme_values*quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]
 if(d1){cat('Warning : Suspect extreme values in left tail')}
 if(d99){cat('Warning : Suspect extreme values in right tail')}
+
 caption <- paste("Histogram for variable ",num_var_names[i])
 ```
 
@@ -26,8 +27,20 @@ caption <- paste("Histogram for variable ",num_var_names[i])
 library(ggplot2)
 
 v <- num_var_names[i]
-hp <- ggplot(na.omit(data), aes_string(x=v)) + geom_histogram( colour="grey", fill="grey", binwidth=diff(range(na.omit(data[[v]]))/100))
+# only take variable of interest, filter na's
+num_var <- data_set[!is.na(data_set[num_var_names[i]]),num_var_names[i]]
+# build dataframe again
+pd <- as.data.frame(num_var)
+names(pd) <- num_var_names[i]
 
-hp + theme(axis.title.x = element_blank(),axis.text.x = element_text(size=10)) + theme(axis.title.y = element_blank(),axis.text.y = element_text(size=10))
+# only plot if range is adequatly wide
+if(diff(range(pd[num_var_names[i]]))!=0){
+
+hp <- ggplot(pd, aes_string( x = num_var_names[i]))
+hp + geom_histogram( colour="grey", fill="grey", position="identity",binwidth=diff(range(pd[num_var_names[i]])/100))
+
+#hp + theme(axis.title.x = element_blank(),axis.text.x = element_text(size=10)) + theme(axis.title.y = element_blank(),axis.text.y = element_text(size=10))
+
+} # end if
 
 ```

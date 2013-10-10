@@ -1,0 +1,17 @@
+base
+caTools
+gdata
+gplots
+gtools
+KernSmooth
+knitr
+lpSolve
+MASS
+pander
+randomForest
+rattle
+RColorBrewer
+ROCR
+rpart
+rpart.plot
+sampling

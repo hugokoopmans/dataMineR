@@ -1,0 +1,219 @@
+% Model Development Report
+% dataMineR
+% 30 augustus 2013
+
+
+Introduction
+============
+
+This analysis report is generated using R, R-studio and knitr to knitr R code from markdown into html and later LateX format. We have the option to include all R code that is used to generate the plots and calculations. By default this feauture is dissabled.
+
+The model development step is the third step in a datamining analysis.
+Steps identified in the datamining process are: 
+
+* Data analysis 
+* Behaviour analysis 
+* Missing value analysis 
+* Missing value imputation (optional) 
+* Binning 
+* Feature selection 
+* Model development 
+* Model analysis 
+* Model deployment
+
+For the model development process there are a lot of ttechniques and algorithms available in R. For now we will focus on randomForest implemented in the package randomForest() in R.
+
+Other options are logistic regression or adaBoost which is arguably the "best of the shelf classifier in the world".
+
+Information on Dataset 
+------------------------------------
+Basic information from the dataset we are using.
+
+```{r eval=TRUE, echo=FALSE}
+# set global chunk options 
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+
+# read externalized R from R script
+read_chunk("model-development.R")
+
+# source dataminer functions
+source("../dataminer.R")
+
+# generic parameters:
+# target_name
+target_name <- "target"
+# scoreband bins
+bins <- 20
+# proportion used for training set
+training_proportion <- 0.7
+
+```
+
+
+```{r read_data, cache=FALSE}
+
+```
+We are using data from file : `r filename`. The dataset has `r colums` variables and `r rows` rows.
+
+
+Validation setup
+==========================
+
+The basic challengence in datamining is that we will develop a predictive model that has predictive capability on onseen data. There are a lot of learning methods that can leverage a large proportion of the collected data using n-fold cross validation.
+
+If there are enough cases we can use a simple shema that holds back a percentage of cases as a test set. The training set will be used entirely for model development using the above mentioned validation methods. The test set is only used in model evaluation.
+
+```{r validation-setup}
+
+```
+
+We have a train set of `r nrow(train_set)` cases. The test set contains `r nrow(test_set)` cases.
+```{r save-test-set-data}
+
+```
+
+The test set is saved in `r datasetName`.
+
+Feature Selection
+=========================
+
+As we often have a big dataset with a lot of cases and a lot of variables(or features) we will have to implement a feature selection method to reduce the number of variables to be used in the final model. This is to prefent issues with colinearity and overfitting. 
+
+To do this we have to get an idea on the importance of variables in relation to the prediction task. The random forest package has a function to assess variable importance in a model set. This function build repeatedly a random forest leaving one variable out of the model set. Then each model is tested on the Out Of Bag set and the decrease in gini is captured. The variable with the highest decrease in gini is the most valuable.
+
+```{r feature-selection,  results='asis'}
+
+```
+
+Unimportant Variables
+-------------------------
+
+Based on the initial assessment of variable importance we can see that variables for which no significant ( < 1.0) decrease in the Gini index is detected can savely be removed from the modelling set.
+
+
+```{r remove-unimportant,  results='asis'}
+
+```
+
+Trees
+===================
+
+We start by building a simple Decision Tree model using the rpart package. For classification a recursive partitioning sheme is used. The split criterium uses the Gini index to calculate the best split on each node.
+
+Let us take a look at a simple tree using the two most important variables.
+```{r simple-tree}
+
+```
+
+In this plot the width of the branches denotes the percentage of cases falling in that branch. In the leafs we see the change that churn occurs in that leaf. This result is emphasized by the color the leaf has, red means high change of churn , green low change of churn.
+
+```{r plot-simple-tree, fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'Simple decision tree'}
+
+```
+
+
+Pruning the tree
+-------------------
+Usually a full tree is build, which is pruned back to a size that is optimal given the information available in the dataset.
+This can be done by checking the complexity factor cp. More on pruning methodologies eand techniques [here](http://en.wikipedia.org/wiki/Pruning_(decision_trees)).
+```{r plot-cp,  fig.width = 6, fig.height = 5, fig.cap = 'Complexity plot: trees size vs relative x-val error'}
+
+```
+
+In the above figure we can see how the relative error on the cross validated trees increases as the tree size gets bigger. This indicated overfitting. 
+
+```{r prune-tree,  fig.width = 4, fig.height = 4}
+
+```
+
+A good tree size is the size for which the complexity factor is minimal. In this case the minimal cp is `r cp.optimal`.
+
+Optional : Cost matrix
+-------------------
+We can specify different cost for false negatives (FN) and false positives(FP) 
+
+
+Forests
+===================
+
+Random forests are an ensemble learning method for classification (and regression) that operate by constructing a multitude of decision trees at training time and outputting the class that is the mode of the classes output by individual trees. More on wikipedia [here](http://en.wikipedia.org/wiki/Random_forest).
+
+Random Forests are implemented in R by the package randomForest.
+
+Parameters
+----------------------
+Number of trees per model
+
+Node size
+
+Stratified dataset
+-----------------------
+This modelling technique works best on stratified datasets.
+
+```{r rf-stratified, fig.width = 8, fig.height = 6, fig.cap = 'Variable Importance Stratified random forest'}
+
+```
+
+Use parallel computing for big datasets
+-----------------------
+
+As we have more then 100k cases we use the package foreach and multicore to build forests in parallel and combine results afterwards.
+
+```{r rf-parallel, eval=TRUE}
+
+```
+
+Model Quality
+=======================
+
+We have build some trees and forests.
+```{r eval-on-training}
+
+```
+
+The following models will be evaluated in this section:
+`r model_names`
+
+Results can be captured in a couple of ways.
+
+Area under the Reciever Operating Curve
+------------------------
+
+Plot ROC curves and AUC statistics on training set.
+```{r plot-roc,fig.width = 8, fig.height = 6, fig.cap = 'ROC curves'}
+
+```
+
+Koglomoroff Smirnov Statistic
+------------------------
+
+Seperation between cumulative good and bad.
+
+Rank correlation
+-----------------------
+todo
+
+Score table
+-----------------------
+Prediction on the training set result shown in equal volume bands.
+Average churn rate in a band is used as the predicted probability of the target behaviour.
+```{r score-table,  results='asis'}
+
+```
+
+The model selected is `r model_names[model_id]`, described as `r model_descript[model_id]`.
+
+Save models
+=======================
+Save models that where developped in this step.
+
+Models saved for evaluation are listen in the table below: 
+
+```{r save-models,  results='asis'}
+
+```
+
+Next Step
+=======================
+
+The next step in model evaluation on the test set.

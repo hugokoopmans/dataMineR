@@ -1,4 +1,4 @@
-% Behaviour Analysis Report
+% Data Preperation Report
 % dataMineR
 % 19/6/2013
 
@@ -8,7 +8,7 @@ Introduction
 
 This analysis report is generated using R, R-studio and knitr to knitr R code from markdown into html and later LateX format. We have the option to include all R code that is used to generate the plots and calculations. By default this feauture is dissabled.
 
-The behaviour analysis step is the second step in a datamining analysis.
+The data preperation step is the second step in a datamining analysis.
 Steps identified in the datamining process are: 
 
 * Data analysis 
@@ -30,10 +30,15 @@ Basic information from the dataset we are using.
 opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
 # read externalized R from R script
 read_chunk("data-preperation.R")
+
+# target defenition
+target_name <- 'target'
+
+
 ```
 
 
-```{r read_data}
+```{r read_data, cache=FALSE}
 
 ```
 We are using data from file : `r filename`. The dataset has `r colums` variables and `r rows` rows.
@@ -67,16 +72,16 @@ The target has the following proportion of outcomes:
 Missing values
 -------------------------
 
-Before we can do model analysis we need to take care of missing values. The simplest appraoch is to delete cases including one or more missing entries but this can remove a large proportion of valuable data.
+Before we can do model analysis we need to take care of missing values. The simplest appraoch,if the missing data in Missing Completly at Random(MCAR) or Missing at Random(MAR), is to delete cases including one or more missing entries but this can remove a large proportion of valuable data.
 
 We can also remove individual variables if they have a high percentage of missing atributes.
-Or we can replace or impute missing data with for instance an average or most frequent value. Actually changing the data. For this we can use kNN nearest neighbors. 
+Or we can replace or impute missing data with for instance an average or most frequent value. In R we can use the function na.roughfix() from the package randomForest for this. Actually changing the data. For this we can use kNN nearest neighbors algorithm implemented in package DMwR or rfImpute() from the package RandomForest. 
 
-For now we will throw away all cases that have one or more missing attribute.
+For now we will impute using na.roughfix().
 
-This dataset has `r nrow(data)-nrow(data[complete.cases(data),])` missing cases out of `r nrow(data)`, which is `r (nrow(data)-nrow(data[complete.cases(data),]))/nrow(data)*100` percent.
+This dataset has `r nrow(data_set)-nrow(data_set[complete.cases(data_set),])` incomplete cases out of `r nrow(data_set)`, which is `r (nrow(data_set)-nrow(data_set[complete.cases(data_set),]))/nrow(data_set)*100` percent.
 
-```{r missing_def}
+```{r missing_def, cache=FALSE}
 
 ```
 
@@ -86,7 +91,7 @@ Variable interactions
 
 Hierarchical clustering is a good technique to visualize interactions between numeric variables.
 
-```{r cluster}
+```{r cluster, cache=TRUE}
 
 ```
 
@@ -95,7 +100,7 @@ Behaviour analysis summary
 
 The selected inputs have the following raw predictive capacity for predicting the target outcome:
 
-```{r raw_pred_cap, results='asis'}
+```{r raw_pred_cap, results='asis', cache=FALSE}
 
 ```
 
@@ -103,9 +108,19 @@ Detailed variable behaviour analysis
 ==========================
 Now we look at individual variables and analyse it's relation with the target. We visualize numerical variables different then categorical ones.
 
-```{r run-recode}
+```{r run-recode, include=FALSE, warning = FALSE}
 
 ```
 
 `r paste(out, collapse = '\n')`
 
+Model Set
+==========================
+
+```{r save-data}
+
+```
+
+We save the resulting set for moddeling as `r datasetName`.
+
+The next step in Model development.

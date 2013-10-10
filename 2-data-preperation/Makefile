@@ -1,4 +1,4 @@
-FILE=data-preperation-report
+FILE=Data-Preperation-Report
 PDFTEMPLATE=../templates/pdf/extended.tex
 OPT_PDF=--variable numbersections --toc --variable toc-depth=2 --variable documentclass=memoir --variable fontsize=11pt 
 # -F +implicit_header_references

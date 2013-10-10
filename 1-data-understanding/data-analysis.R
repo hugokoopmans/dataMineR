@@ -3,7 +3,8 @@
 
 # knitr uses Rmd fil location as working directory
 # if we run script from Rstudio we need to put the right working dir
-# setwd("~/r-studio/dataMineR/1-data-understanding")
+setwd("~/r-studio/dataMineR/1-data-understanding")
+
 
 library(knitr)
 
@@ -12,35 +13,48 @@ library(knitr)
 # all inline!
 
 ## @knitr read_data
+
 i=1
 
 # data location full path to filename from working directory(=project dir)
 # This works by default from the relative path
-path2file <- "../data/data-simple-example.tab"
+#path2file <- "../data/clean_base.csv"
+path2file <- "../data/ano_churn_data.Rdata"
 
-# read dataframe from tab delimets file
-data <- read.delim(path2file,sep = "\t",strip.white = TRUE)
+# file can be a tab delimited txt fil or a previously saveed workspace in .Rdata format
+# read dataframe from tab delimited file
+#data_set <- read.table("~/r-studio/NLE/data/clean_base.tab", sep= '\t', header=T, quote="\"")
+#data_set <- read.delim(filename)
+
+# read data from .Rdata save workspace
+load(path2file)
+# tell the script which data set to use if we load a workspace
+data_set <- ano_set
+
+# remove the original dataset
+rm(ano_set)
 
 # determine number of rows and colums in dataframe
-rows <- nrow(data)
-colums <- ncol(data)
+rows <- nrow(data_set)
+colums <- ncol(data_set)
 
 # case_id = registrnr
-original_case_id = 'caseID'
-#data$caseID <- data$caseID
+original_case_id = 'carid'
+#data_set$caseID <- data_set$caseID
 
 # check if case_id is unique
-if( ! (length(unique(data$caseID)) == length(data$caseID)) ){
+if( ! (nrow(unique(data_set[original_case_id])) == nrow(data_set[original_case_id])) ){
         cat('Warning : Case_id appears not unique ! ')}
+
+## @knitr var_types
 
 # exclude original case_id and variables with lot of missing
 #exclude_var_names <- c('caseID','registrnr','X2011tmoktstornaant','X2010stornoaantal')
-exclude_var_names <- c('p_y','p_real','y')
-data <- data[,!names(data) %in% exclude_var_names]
+exclude_var_names <- c('carid')
+data_set <- data_set[,!names(data_set) %in% exclude_var_names]
 
-## @knitr var_types
 # names in header
-var_names <- names(data)
+var_names <- names(data_set)
 
 # sometimes variabels are in the dataset as codes, they appear numeric but code for a category
 
@@ -50,18 +64,18 @@ var_names <- names(data)
 treat_as_categorical <- NULL
 
 # transform numeric into factors
-data[treat_as_categorical] <- lapply(data[treat_as_categorical], as.factor)
+data_set[treat_as_categorical] <- lapply(data_set[treat_as_categorical], as.factor)
 
-num_var_names <- names(data[sapply(data, is.numeric)])
+num_var_names <- names(data_set[sapply(data_set, is.numeric)])
 num_vars <- length(num_var_names)
-cat_var_names <- names(data[sapply(data, is.factor)])
+cat_var_names <- names(data_set[sapply(data_set, is.factor)])
 cat_vars <- length(cat_var_names)
 
 ## @knitr num-overview-md
 library(pander)
 
 # summarize numeric variables
-td <- data[,sapply(data, is.numeric)]
+td <- data_set[,sapply(data_set, is.numeric)]
 td.min <- sapply(td,min,na.rm = TRUE)
 td.mean <- sapply(td,mean,na.rm = TRUE)
 td.median <- sapply(td,median,na.rm = TRUE)
@@ -87,10 +101,10 @@ for (i in c(1:num_vars)) {
 }
 
 ## @knitr cat-overview
-c_data <- data[sapply(data, is.factor)]
+c_data <- data_set[sapply(data_set, is.factor)]
 # check number of levels per factor
 c_levels <-  sapply(c_data,nlevels)
-max_levels <- 25
+max_levels <- 32
 # trick if only one colum left we need to make sure still a dataframe to keep the names attached
 c_data.limited_levels <- c_data[,c_levels <= max_levels, drop=FALSE ]
 c_data.not_reported <- c_data[,c_levels > max_levels]
@@ -126,6 +140,10 @@ for (i in c(1:num_c_vars_lim)) {
 }
 
 ## @knitr save-data
-datasetName = "../data/data-analysis.tab"
-write.table(data,file = datasetName, sep = "\t", row.names=FALSE, quote = FALSE)
+#datasetName = "../data/data-analysis.tab"
+datasetName = "../data/data-set.Rdata"
 
+#write.table(data_set,file = datasetName, sep = "\t", row.names=FALSE, quote = FALSE)
+
+# alternative is to save R objject in .Rdata format
+save(data_set, file = datasetName)

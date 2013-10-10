@@ -16,15 +16,15 @@ Basic information from the dataset we are using.
 
 ```{r setup, echo=FALSE, cache=FALSE}
 # set global chunk options APPERENTLY CANNOT BE EXTERNALIZED
-opts_chunk$set(echo=TRUE, cache=FALSE, tidy=TRUE, error=TRUE)
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, error=TRUE)
 # read externalized R from R script
 read_chunk("data-analysis.R")
 ```
 
-```{r read_data, echo=TRUE}
+```{r read_data, echo=TRUE, cache=FALSE}
 
 ```
-We are using data from file: ``r path2file`. The dataset has `r colums` variables and `r rows` rows. 
+We are using data from file: `r path2file`. The dataset has `r colums` variables and `r rows` rows. 
 
 The case identifyer is *`r original_case_id`* this is unique for all cases.
 
@@ -32,7 +32,7 @@ The case identifyer is *`r original_case_id`* this is unique for all cases.
 Variabele types
 ---------------
 
-```{r var_types}
+```{r var_types }
 
 ```
 
@@ -102,7 +102,7 @@ Variables with to many levels to report are : `r c_var_names.not_reported` .
 `r paste(out, collapse = '\n')`
 
 Behavioural Analysis
-----------------------------
+==================================
 The next step is behavioural analysis.
 The current dataset is now saved.
 ```{r save-data}

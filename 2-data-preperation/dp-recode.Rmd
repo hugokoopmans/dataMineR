@@ -3,35 +3,69 @@ Behaviour for variable `r var_names[i]`
 
 Here we wil look into the relation of variable `r var_names[i]` with the target.
 
-```{r }
+```{r eval=TRUE,  fig.width = 6, fig.height = 5, warning = FALSE, fig.cap = ''}
 library(plyr)
-if (is.numeric(data[[var_names[i]]])==TRUE) {
-  print ("numeric")
-} else {
-  library(ggplot2)
-  # calculate statistics for probability of target
-  c_stats <- ddply(data,i,summarise,sum=sum(p_target),mean=mean(p_target),sd=sd(p_target))
+library(ggplot2)
+library(grid)
+library(gridExtra)
+
+# for speed reduce set size
+p_data_set <- s_data_set
+
+if (is.numeric(p_data_set[[var_names[i]]])) {
+  if (length(unique(p_data_set[[var_names[i]]])) > 10) {
+  p1 <- ggplot(data=p_data_set, aes_string(x=var_names[i], y="p_target")) +
+    geom_smooth() +
+    xlab(var_names[i]) +
+    ylab("P(churn)")
+
+  p2 <- ggplot(data=p_data_set, aes_string(x=var_names[i])) +
+    geom_density(aes_string(group=target_name, colour=target_name, fill=target_name), alpha=0.3) +
+    theme(legend.position = "bottom")
   
-  d1 <- ddply(data,i,summarise,y=sum(p_target))
-  d2 <- ddply(data,i,summarise,y=mean(p_target))
+  grid.arrange(p1,p2)
   
-  d1$panel <- "volume"
-  d2$panel <- "p(target)"
-  
-  # plot the bar chart
-  ggplot(data=d1, aes_string(x=var_names[i], y="y")) + geom_bar(stat = "identity") + geom_point()
-  # plot probability
-  ggplot(data=d2, aes_string(x=var_names[i], y="y")) + geom_point()
-  
-  # combine dataframe
-  d <- rbind(d1, d2)
-  # combine plots
-  p <- ggplot(data = d, mapping = aes_string(x=var_names[i], y="y"))
-  p <- p + facet_grid(panel ~ ., scale = "free")
-  p <- p + layer(data = d1, geom = c( "bar"), stat = "identity")
-  p <- p + layer(data = d2, geom = c( "point"), stat = "identity")
-  p
-  
+  } else {
+    print("To few unique values to plot")
+    }
+} # endif is.numeric(...)
+    
+if (is.factor(p_data_set[[var_names[i]]])) {
+  # if to many levels skipp variable
+  if (nlevels(as.factor(p_data_set[[var_names[i]]])) > 32){
+    print("To many levels to plot")
+  } 
+  else {
+    # calculate statistics for probability of target
+    #c_stats <- ddply(p_data_set,i,summarise,sum=sum(p_target),mean=mean(p_target),sd=sd(p_target))
+    
+    # trim long levels to first 15 characters
+    levels(p_data_set[,i]) <- substr(levels(p_data_set[,i]),0,15)
+    
+    #d1 <- ddply(p_data_set,i,summarise,y=sum(p_target))
+    d1 <- as.data.frame(table(p_data_set[,i]))
+    names(d1) <- c(var_names[i],"y")
+    d2 <- ddply(p_data_set,i,summarise,y=mean(p_target))
+    
+    d1$panel <- "volume"
+    d2$panel <- "p(target)"
+    
+    # plot the bar chart
+    #ggplot(data=d1, aes_string(x=var_names[i], y="y")) + geom_bar(stat = "identity") + geom_point()
+    # plot probability
+    #ggplot(data=d2, aes_string(x=var_names[i], y="y")) + geom_point()
+    
+    # combine dataframe
+    d <- rbind(d1, d2)
+    # combine plots
+    p <- ggplot(data = d, mapping = aes_string(x=var_names[i], y="y")) + 
+      facet_grid(panel ~ ., scales = "free") +
+      theme_bw() + 
+      theme(axis.text.x = element_text(angle = 90,hjust = 1)) +
+      layer(data = d1, geom = c( "bar"), stat = "identity") +
+      layer(data = d2, geom = c( "point"), stat = "identity")
+    p
+  }  
 }
   
 
