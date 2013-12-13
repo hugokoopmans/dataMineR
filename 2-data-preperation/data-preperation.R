@@ -82,7 +82,7 @@ require(randomForest)
 #length(which(!complete.cases(data)))
 
 # transform target back to probablity needed for plots in run-recode
-data_set$p_target <- as.numeric(data_set[[target_name]])-1
+data_set$p_target <- as.numeric(data_set[[target_name]])+1
 
 # create new dataset without missing data
 #data_set <- na.omit(data_set)
