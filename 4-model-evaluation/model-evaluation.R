@@ -4,11 +4,12 @@
 # if we run script from Rstudio we need to put the right working dir
 
 # standalone parameters:
-setwd("~/r-studio/NLE/4-model-evaluation")
+setwd("~/r-studio/dataMineR/4-model-evaluation")
+
 # target name
-target_name <- "churn_201305"
+target_name <- "target"
 # source dataMineR functions
-source("./dataminer.R")
+source("../dataminer.R")
 
 ## @knitr read_data
 

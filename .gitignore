@@ -6,7 +6,7 @@
 1-data-understanding/.DS_Store
 .DS_Store
 # Generated files:
-*.pdf
+#*.pdf
 *.html
 *.png
 *.Rnw

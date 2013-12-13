@@ -1,3 +1,8 @@
+% datamineR introduction
+% Hugo Koopmans
+% 18/6/2013
+
+
 Introduction to dataMineR 
 ========================================================
 

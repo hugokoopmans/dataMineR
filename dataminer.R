@@ -82,7 +82,7 @@ plotROC <- function (prfList, m_names=model_names) {
     m_names[i] <- paste(as.character(m_names[i])," : ",sprintf("%.3f",as.numeric(prfList[[i]]$auc)))
   }
   # legend
-  legend("bottomright",legend=m_names,lty=c(1,1),col = lineColour)
+  legend("bottomright",legend=m_names,lty=c(1,1),col = lineColour,pch=21, cex=0.5)
 }
 
 # plot lift curves
@@ -99,7 +99,7 @@ plotLift <- function (prfList, m_names=model_names) {
   }  
   # legend
   #plot legend
-  legend("topright",legend=m_names,lty=c(1,1),col = lineColour)
+  legend("topright",legend=m_names,lty=c(1,1),col = lineColour,pch=21, cex=0.5)
 }
 
 # plot gains chart
@@ -123,13 +123,13 @@ plotGains <- function (prfList, m_names=model_names) {
   # plot perfect model
   abline(0,1/base.rate,lty=3, col = "red")
   
-  legend("bottomright",legend=m_names,lty=c(1,1),col = lineColour)
+  legend("bottomright",legend=m_names,lty=c(1,1),col = lineColour,pch=21, cex=0.5)
 }
 
 #_______________________________________________________________________
 # Calculate score table from scored dataset
 # functions : score_table(bins = 20, data_set = data_set, model = model)
-#             
+# TODO > ad targetname
 #_______________________________________________________________________
 
 # 
@@ -140,7 +140,7 @@ score_table <- function (bins = 20, data_set = data_set, model = model) {
   # select best model and calculate 20 bins
   score.model <- predict(model,data_set,type = "prob")
   # dataframe churn prob and testset churnflag
-  df.score <- as.data.frame(cbind(as.numeric(data_set$churn_201305)-1,score.model[,2]))
+  df.score <- as.data.frame(cbind(as.numeric(data_set$target)-1,score.model[,2]))
   names(df.score) <- c("Churn","Pchurn")
   # order to prob
   df.score <- df.score[order(df.score$Pchurn),]

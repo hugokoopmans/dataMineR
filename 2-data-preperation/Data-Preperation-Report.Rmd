@@ -27,7 +27,7 @@ Basic information from the dataset we are using.
 
 ```{r eval=TRUE, echo=FALSE}
 # set global chunk options 
-opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, message=FALSE,error=TRUE)
 # read externalized R from R script
 read_chunk("data-preperation.R")
 

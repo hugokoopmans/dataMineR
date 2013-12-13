@@ -4,8 +4,7 @@ dataMineR
 Update 7/6/2013
 ---------------
 
-In step 1, we now render tables in extended (Pandoc) markdown. This means that Pandoc can be used to output either pdf
-or html in a well-formatted way.
+In step 1, we now render tables in extended (Pandoc) markdown. This means that Pandoc can be used to output either pdf or html in a well-formatted way.
 
 
 Update
@@ -30,3 +29,20 @@ CRISP-DM breaks the process of data mining into six major phases:
 - Deployment
 
 In this project we focus on automating the steps of Data Understanding, Data Preparation, Modelling, Evaluation.
+
+HowTo
+-------------
+Put your data file into the data directory.
+Point the data-analysis.R to the right file name, to do this chage line
+
+path2file <- "../data/ano_churn_data.Rdata"
+
+to point to your filename.
+
+Be sure to have your target variable named "target" or adjust target_name in file Data-Prperation-Report.Rmd to whatever you want to predict in your dataset
+
+# target defenition
+target_name <- 'target'
+
+Run step by step
+

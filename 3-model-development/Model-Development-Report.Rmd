@@ -31,7 +31,7 @@ Basic information from the dataset we are using.
 
 ```{r eval=TRUE, echo=FALSE}
 # set global chunk options 
-opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, message=FALSE,error=TRUE)
 
 # read externalized R from R script
 read_chunk("model-development.R")
@@ -107,7 +107,7 @@ Let us take a look at a simple tree using the two most important variables.
 
 In this plot the width of the branches denotes the percentage of cases falling in that branch. In the leafs we see the change that churn occurs in that leaf. This result is emphasized by the color the leaf has, red means high change of churn , green low change of churn.
 
-```{r plot-simple-tree, fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'Simple decision tree'}
+```{r plot-simple-tree, fig.width = 8, fig.height = 6,  dpi = 100, warning = FALSE, fig.cap = 'Simple decision tree'}
 
 ```
 
@@ -180,7 +180,7 @@ Area under the Reciever Operating Curve
 ------------------------
 
 Plot ROC curves and AUC statistics on training set.
-```{r plot-roc,fig.width = 8, fig.height = 6, fig.cap = 'ROC curves'}
+```{r plot-roc, fig.width = 6, fig.height = 4, dpi=100, fig.cap = 'ROC curves'}
 
 ```
 

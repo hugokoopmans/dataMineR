@@ -4,6 +4,14 @@
 # if we run script from Rstudio we need to put the right working dir
 setwd("~/r-studio/dataMineR/3-model-development")
 
+# target_name
+target_name <- "target"
+# scoreband bins
+bins <- 20
+# proportion used for training set
+training_proportion <- 0.7
+
+
 ## @knitr read_data
 
 #### parameters ####

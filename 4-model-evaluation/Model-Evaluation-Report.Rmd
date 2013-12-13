@@ -30,7 +30,7 @@ Basic information from the testset we are using.
 
 ```{r eval=TRUE, echo=FALSE}
 # set global chunk options 
-opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, error=TRUE)
+opts_chunk$set(echo=FALSE, cache=FALSE, tidy=TRUE, warning=FALSE, message=FALSE, error=TRUE)
 # read externalized R from R script
 read_chunk("model-evaluation.R")
 
@@ -39,7 +39,7 @@ source("../dataminer.R")
 
 # parameters:
 # target name
-target_name <- "churn_201305"
+target_name <- "target"
 
 ```
 
@@ -90,7 +90,7 @@ ROC
 
 ROC curves
 
-```{r roc-curves, eval=TRUE,  fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'ROC curves'}
+```{r roc-curves, eval=TRUE,  fig.width = 6, fig.height = 4,  dpi = 100, warning = FALSE, fig.cap = 'ROC curves'}
 
 ```
 
@@ -100,7 +100,7 @@ Lift
 
 Lift curves
 
-```{r lift-curves, eval=TRUE,  fig.width = 8, fig.height = 6, warning = FALSE, fig.cap = 'Lift curves'}
+```{r lift-curves, eval=TRUE,  fig.width = 6, fig.height = 4,  dpi = 100,  warning = FALSE, fig.cap = 'Lift curves'}
 
 ```
 
@@ -115,6 +115,10 @@ Gains chart
 Score Table
 =======================
 
+Here we show performance of the selected model. The test set if divided into bins. For each bin we calculate the change our target event happens, we also include upper and lower bands.
+
 ```{r score-table, results='asis'}
 
 ```
+
+Model selected is   `r model_names[model_id]`.

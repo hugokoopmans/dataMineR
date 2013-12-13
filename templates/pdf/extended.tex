@@ -12,7 +12,7 @@
 \newcommand{\quotes}[1]{``#1''}
 
 % Proper A4 geometry:
-\usepackage[hmargin=3.5cm,vmargin=3.5cm,paper=a4paper]{geometry}
+\usepackage[hmargin=2.5cm,vmargin=2.5cm,paper=a4paper]{geometry}
 
 %% Footnotes to endnotes
 %\usepackage{endnotes}
@@ -36,6 +36,7 @@
 % from ftp://ftp.dante.de/tex-archive/info/MemoirChapStyles/MemoirChapStyles.pdf
 \usepackage{color,calc,graphicx,soul,fourier}
 \definecolor{nicered}{rgb}{.647,.129,.149}
+\definecolor{dikwgreen}{rgb}{.0,.5,.0}
 \makeatletter
 \newlength\dlf@normtxtw
 \setlength\dlf@normtxtw{\textwidth}
@@ -44,7 +45,7 @@
 \newcommand\feline@chapter@marker[1][4cm]{%
 \sbox\feline@chapter{%
 \resizebox{!}{#1}{\fboxsep=1pt%
-\colorbox{nicered}{\color{white}\bfseries\sffamily\thechapter}%
+    \colorbox{dikwgreen}{\color{white}\bfseries\sffamily\thechapter}%
 }}%
 \rotatebox{90}{%
 \resizebox{%
@@ -59,7 +60,7 @@
 }}
 \makechapterstyle{daleif1}{
 \renewcommand\chapnamefont{\normalfont\Large\scshape\raggedleft\so}
-\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape\color{nicered}}
+\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape\color{dikwgreen}}
 \renewcommand\chapternamenum{}
 \renewcommand\printchaptername{}
 \renewcommand\printchapternum{\null\hfill\feline@chm[2.5cm]\par}
@@ -251,7 +252,7 @@ $endif$
 \pagestyle{fancy}
 \lhead{}\chead{}\rhead{}
 %\lfoot{\textsc{$author$}}\cfoot{}\rfoot{\textsc{$title$} | \thepage}
-\lfoot{\textsc{dataMineR}}\cfoot{}\rfoot{\thepage}
+\lfoot{\textsc{DIKW Consulting}}\cfoot{dataMineR}\rfoot{\thepage}
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.5pt}
 
@@ -346,7 +347,6 @@ $endif$
 \begin{document}
 $if(title)$
 \maketitle
-%\titleDB
 $endif$
 
 $for(include-before)$
