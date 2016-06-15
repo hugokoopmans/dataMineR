@@ -14,7 +14,7 @@ pander(summary(data_set[[num_var_names[i]]]))
 
 
 ```{r results='asis', comment=""}
-warn_extreme_values=3
+warn_extreme_values=3 #could you comment the code with theory behind why "3" is used here?
 d1 = quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[2] > warn_extreme_values*quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[1]
 d99 = quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[101] > warn_extreme_values*quantile(na.omit(data_set[[num_var_names[i]]]),probs = seq(0, 1, 0.01))[100]
 if(d1){cat('Warning : Suspect extreme values in left tail')}
